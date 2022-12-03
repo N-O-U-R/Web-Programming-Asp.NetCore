@@ -1,1 +1,1 @@
-# Proje
+# Asp.net Core Project

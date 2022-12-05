@@ -1,0 +1,63 @@
+﻿@model Proje.Models.Anime
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Anime</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="animeTitle" class="control-label"></label>
+                <input asp-for="animeTitle" class="form-control" />
+                <span asp-validation-for="animeTitle" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="animePoster" class="control-label"></label>
+                <input asp-for="animePoster" class="form-control" />
+                <span asp-validation-for="animePoster" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="animeRating" class="control-label"></label>
+                <input asp-for="animeRating" class="form-control" />
+                <span asp-validation-for="animeRating" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="animeEpisodes" class="control-label"></label>
+                <input asp-for="animeEpisodes" class="form-control" />
+                <span asp-validation-for="animeEpisodes" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="animeStartYear" class="control-label"></label>
+                <input asp-for="animeStartYear" class="form-control" />
+                <span asp-validation-for="animeStartYear" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="animeEndYear" class="control-label"></label>
+                <input asp-for="animeEndYear" class="form-control" />
+                <span asp-validation-for="animeEndYear" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="animeStory" class="control-label"></label>
+                <input asp-for="animeStory" class="form-control" />
+                <span asp-validation-for="animeStory" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

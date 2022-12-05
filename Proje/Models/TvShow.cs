@@ -1,4 +1,5 @@
-﻿using Proje.Data;
+﻿
+using Proje.Data;
 using System.ComponentModel.DataAnnotations;
 
 namespace Proje.Models
@@ -22,7 +23,7 @@ namespace Proje.Models
         [Display(Name = "Plot Summery")]
         public string showStory { get; set; }
         [Display(Name = "Categories")]
-        public Category showCategory { get; set; }
+        public ICollection<TvShowCategory> showCategory { get; set; }
 
     }
 }

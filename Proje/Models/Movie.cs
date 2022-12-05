@@ -1,4 +1,5 @@
-﻿using Proje.Data;
+﻿
+using Proje.Data;
 using System.ComponentModel.DataAnnotations;
 
 namespace Proje.Models
@@ -20,7 +21,7 @@ namespace Proje.Models
         [Display(Name = "Running Time")]
         public int movieRunningTime { get; set; }
         [Display(Name = "Categories")]
-        public Category movieCategory { get; set; }
+        public ICollection<MovieCategory> movieCategory { get; set; }
 
     }
 }

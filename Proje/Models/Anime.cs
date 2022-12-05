@@ -1,4 +1,5 @@
-﻿using Proje.Data;
+﻿
+using Proje.Data;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -28,7 +29,7 @@ namespace Proje.Models
 
         public string animeStory { get; set; }
         [Display(Name = "Categories")]
-        public Category animeCategory { get; set; }
+        public ICollection<AnimeCategory> animeCategory { get; set; }
 
     }
 }

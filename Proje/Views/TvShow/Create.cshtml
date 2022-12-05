@@ -1,0 +1,63 @@
+﻿@model Proje.Models.TvShow
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>TvShow</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="showTitle" class="control-label"></label>
+                <input asp-for="showTitle" class="form-control" />
+                <span asp-validation-for="showTitle" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="showPoster" class="control-label"></label>
+                <input asp-for="showPoster" class="form-control" />
+                <span asp-validation-for="showPoster" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="showStartYear" class="control-label"></label>
+                <input asp-for="showStartYear" class="form-control" />
+                <span asp-validation-for="showStartYear" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="showEndYear" class="control-label"></label>
+                <input asp-for="showEndYear" class="form-control" />
+                <span asp-validation-for="showEndYear" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="showEpisodes" class="control-label"></label>
+                <input asp-for="showEpisodes" class="form-control" />
+                <span asp-validation-for="showEpisodes" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="showRating" class="control-label"></label>
+                <input asp-for="showRating" class="form-control" />
+                <span asp-validation-for="showRating" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="showStory" class="control-label"></label>
+                <input asp-for="showStory" class="form-control" />
+                <span asp-validation-for="showStory" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

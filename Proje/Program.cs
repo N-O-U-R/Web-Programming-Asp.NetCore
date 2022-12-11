@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using NuGet.Protocol.Core.Types;
 using Proje.Models.Domain;
+using Proje.Repositories.Abstract;
+using Proje.Repositories.Implementation;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,6 +17,7 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFramework
 
 builder.Services.ConfigureApplicationCookie(op => op.LoginPath = "/UserAuthentcation/Login");
 
+builder.Services.AddScoped<IUserAuthenticationService, UserAuthenticationService>();
 
 
 var app = builder.Build();

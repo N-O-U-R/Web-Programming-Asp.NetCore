@@ -7,6 +7,6 @@ namespace Proje.Models
         [Required]
         public string UserName { get; set; }
         [Required]
-        public int PassWord { get; set; }
+        public String PassWord { get; set; }
     }
 }

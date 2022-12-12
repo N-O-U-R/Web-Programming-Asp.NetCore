@@ -2,6 +2,7 @@
 using Proje.Models;
 using Proje.Models.Domain;
 using Proje.Repositories.Abstract;
+using System.Security.Claims;
 
 namespace Proje.Repositories.Implementation
 {
@@ -20,9 +21,63 @@ namespace Proje.Repositories.Implementation
         }
         public int MyProperty { get; set; }
 
-        public Task<Status> LoginAsync(Login model)
+        public async Task<Status> LoginAsync(Login model)
         {
-            throw new NotImplementedException();
+           var status = new Status();   
+            var user = await userManager.FindByNameAsync(model.UserName);
+            if (user == null)
+            {
+                status.StatuCode = 0;
+                status.Message = "User could not found  ";
+                return status; 
+            }
+            //match the password 
+             
+            if (!await userManager.CheckPasswordAsync(user,  model.PassWord))
+            {
+                status.StatuCode = 0;
+                status.Message = "Password Invalid ";
+                return status;  
+            }
+
+            var signInResult = await signInManager.PasswordSignInAsync(user , model.PassWord , false , true);
+            if (signInResult.Succeeded)
+            {
+                //roll managmet
+                var userRoles = await userManager.GetRolesAsync(user);
+                var authClaims = new List<Claim>
+                {
+                    new Claim(ClaimTypes.Name, model.UserName)
+                };
+                foreach (var userRole in userRoles)
+                {
+                    authClaims.Add( new Claim (ClaimTypes.Role , userRole)); 
+                }
+                //last check 
+                status.StatuCode = 1;
+                status.Message = "Log in went Succssesfully  ";
+                return status;  
+
+            }
+            else if(!signInResult.IsLockedOut)
+            {
+                status.StatuCode = 0 ;
+                status.Message = "User is LOcked out ";
+                return status;
+            }
+
+            else
+            {
+                status.StatuCode = 0 ;
+                status.Message = "  Loginig in failed  ";
+                return status;
+
+            }
+
+
+
+
+
         }
 
         public async Task LogoutAsync()

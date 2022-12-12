@@ -1,9 +1,24 @@
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using NuGet.Protocol.Core.Types;
+using Proje.Models.Domain;
+using Proje.Repositories.Abstract;
+using Proje.Repositories.Implementation;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddDbContext<DatabaseContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("conn")));
+//for identity 
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<DatabaseContext>()
+    .AddDefaultTokenProviders();
+
+builder.Services.ConfigureApplicationCookie(op => op.LoginPath = "/UserAuthentcation/Login");
+
+builder.Services.AddScoped<IUserAuthenticationService, UserAuthenticationService>();
+
 
 var app = builder.Build();
 
@@ -17,6 +32,7 @@ if (!app.Environment.IsDevelopment())
 app.UseAuthorization();
 app.UseDeveloperExceptionPage();
 
+app.UseAuthentication();    
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();

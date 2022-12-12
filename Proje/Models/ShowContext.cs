@@ -5,9 +5,13 @@ namespace Proje.Models
 {
     public class ShowContext:DbContext
     {
-        public DbSet<Movie> Movies { get; set; }
-        public DbSet<TvShow> Shows { get; set; }
-        public DbSet<Anime> Animes { get; set; }
+        public DbSet<Anime> animes { get; set; }
+        public DbSet<Movie> movies { get; set; }
+        public DbSet<TvShow> tvShows { get; set; }
+
+        public DbSet<Category> categories { get; set; }
+
+  
         
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

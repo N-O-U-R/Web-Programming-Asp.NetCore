@@ -9,79 +9,80 @@ using Proje.Models;
 
 namespace Proje.Controllers
 {
-    public class MovieController : Controller
+    public class TvShowsController : Controller
     {
         ShowContext _context = new ShowContext();
-        // GET: Movie
+
+        // GET: TvShows
         public async Task<IActionResult> Index()
         {
-              return View(await _context.Movies.ToListAsync());
+              return View(await _context.tvShows.ToListAsync());
         }
 
-        // GET: Movie/Details/5
+        // GET: TvShows/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.Movies == null)
+            if (id == null || _context.tvShows == null)
             {
                 return NotFound();
             }
 
-            var movie = await _context.Movies
-                .FirstOrDefaultAsync(m => m.movieId == id);
-            if (movie == null)
+            var tvShow = await _context.tvShows
+                .FirstOrDefaultAsync(m => m.showId == id);
+            if (tvShow == null)
             {
                 return NotFound();
             }
 
-            return View(movie);
+            return View(tvShow);
         }
 
-        // GET: Movie/Create
+        // GET: TvShows/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Movie/Create
+        // POST: TvShows/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("movieId,movieTitle,movieYear,moviePoster,movieRating,movieStory,movieRunningTime")] Movie movie)
+        public async Task<IActionResult> Create([Bind("showId,showTitle,showPoster,showStartYear,showEndYear,showEpisodes,showRating,showStory")] TvShow tvShow)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(movie);
+                _context.Add(tvShow);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(movie);
+            return View(tvShow);
         }
 
-        // GET: Movie/Edit/5
+        // GET: TvShows/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.Movies == null)
+            if (id == null || _context.tvShows == null)
             {
                 return NotFound();
             }
 
-            var movie = await _context.Movies.FindAsync(id);
-            if (movie == null)
+            var tvShow = await _context.tvShows.FindAsync(id);
+            if (tvShow == null)
             {
                 return NotFound();
             }
-            return View(movie);
+            return View(tvShow);
         }
 
-        // POST: Movie/Edit/5
+        // POST: TvShows/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("movieId,movieTitle,movieYear,moviePoster,movieRating,movieStory,movieRunningTime")] Movie movie)
+        public async Task<IActionResult> Edit(int id, [Bind("showId,showTitle,showPoster,showStartYear,showEndYear,showEpisodes,showRating,showStory")] TvShow tvShow)
         {
-            if (id != movie.movieId)
+            if (id != tvShow.showId)
             {
                 return NotFound();
             }
@@ -90,12 +91,12 @@ namespace Proje.Controllers
             {
                 try
                 {
-                    _context.Update(movie);
+                    _context.Update(tvShow);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!MovieExists(movie.movieId))
+                    if (!TvShowExists(tvShow.showId))
                     {
                         return NotFound();
                     }
@@ -106,49 +107,49 @@ namespace Proje.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(movie);
+            return View(tvShow);
         }
 
-        // GET: Movie/Delete/5
+        // GET: TvShows/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _context.Movies == null)
+            if (id == null || _context.tvShows == null)
             {
                 return NotFound();
             }
 
-            var movie = await _context.Movies
-                .FirstOrDefaultAsync(m => m.movieId == id);
-            if (movie == null)
+            var tvShow = await _context.tvShows
+                .FirstOrDefaultAsync(m => m.showId == id);
+            if (tvShow == null)
             {
                 return NotFound();
             }
 
-            return View(movie);
+            return View(tvShow);
         }
 
-        // POST: Movie/Delete/5
+        // POST: TvShows/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.Movies == null)
+            if (_context.tvShows == null)
             {
-                return Problem("Entity set 'ShowContext.Movies'  is null.");
+                return Problem("Entity set 'ShowContext.tvShows'  is null.");
             }
-            var movie = await _context.Movies.FindAsync(id);
-            if (movie != null)
+            var tvShow = await _context.tvShows.FindAsync(id);
+            if (tvShow != null)
             {
-                _context.Movies.Remove(movie);
+                _context.tvShows.Remove(tvShow);
             }
             
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool MovieExists(int id)
+        private bool TvShowExists(int id)
         {
-          return _context.Movies.Any(e => e.movieId == id);
+          return _context.tvShows.Any(e => e.showId == id);
         }
     }
 }

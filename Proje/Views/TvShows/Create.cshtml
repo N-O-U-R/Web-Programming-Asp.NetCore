@@ -48,6 +48,11 @@
                 <span asp-validation-for="showStory" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="showCategories" class="control-label"></label>
+                @Html.ListBoxFor(x => x.showCategoryArray, new MultiSelectList(Model.categoryCollection,"categoryId","categoryName"),new {id= "multiSelectDropdown",multiple="multiple"})
+                <span asp-validation-for="showCategories" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
         </form>
@@ -59,5 +64,15 @@
 </div>
 
 @section Scripts {
+    <script>
+
+        $(function () {
+            $("#multiSelectDropdown").chosen({
+                width: "100%",
+                disable_search_thresholder: 5
+            });
+
+        });
+    </script>
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

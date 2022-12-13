@@ -12,6 +12,7 @@ namespace Proje.Controllers
     public class AnimesController : Controller
     {
         ShowContext _context = new ShowContext();
+
         // GET: Animes
         public async Task<IActionResult> Index()
         {
@@ -39,7 +40,10 @@ namespace Proje.Controllers
         // GET: Animes/Create
         public IActionResult Create()
         {
-            return View();
+            Anime anime = new Anime();
+
+            anime.categoryCollection = _context.categories.ToList();
+            return View(anime);
         }
 
         // POST: Animes/Create
@@ -47,8 +51,11 @@ namespace Proje.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("animeId,animeTitle,animePoster,animeRating,animeEpisodes,animeStartYear,animeEndYear,animeStory")] Anime anime)
+        public async Task<IActionResult> Create([Bind("animeId,animeTitle,animePoster,animeRating,animeEpisodes,animeStartYear,animeEndYear,animeStory,animeCategories,animeCategoryArray")] Anime anime)
         {
+            anime.animeCategories = string.Join(",", anime.animeCategoryArray);
+
+            
             if (ModelState.IsValid)
             {
                 _context.Add(anime);
@@ -79,7 +86,7 @@ namespace Proje.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("animeId,animeTitle,animePoster,animeRating,animeEpisodes,animeStartYear,animeEndYear,animeStory")] Anime anime)
+        public async Task<IActionResult> Edit(int id, [Bind("animeId,animeTitle,animePoster,animeRating,animeEpisodes,animeStartYear,animeEndYear,animeStory,animeCategories")] Anime anime)
         {
             if (id != anime.animeId)
             {

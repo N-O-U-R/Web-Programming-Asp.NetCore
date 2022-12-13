@@ -40,7 +40,9 @@ namespace Proje.Controllers
         // GET: TvShows/Create
         public IActionResult Create()
         {
-            return View();
+            TvShow show = new TvShow();
+            show.categoryCollection = _context.categories.ToList();
+            return View(show);
         }
 
         // POST: TvShows/Create
@@ -48,8 +50,9 @@ namespace Proje.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("showId,showTitle,showPoster,showStartYear,showEndYear,showEpisodes,showRating,showStory")] TvShow tvShow)
+        public async Task<IActionResult> Create([Bind("showId,showTitle,showPoster,showStartYear,showEndYear,showEpisodes,showRating,showStory,showCategories,showCategoryArray")] TvShow tvShow)
         {
+            tvShow.showCategories = string.Join(",", tvShow.showCategoryArray);
             if (ModelState.IsValid)
             {
                 _context.Add(tvShow);
@@ -80,7 +83,7 @@ namespace Proje.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("showId,showTitle,showPoster,showStartYear,showEndYear,showEpisodes,showRating,showStory")] TvShow tvShow)
+        public async Task<IActionResult> Edit(int id, [Bind("showId,showTitle,showPoster,showStartYear,showEndYear,showEpisodes,showRating,showStory,showCategories")] TvShow tvShow)
         {
             if (id != tvShow.showId)
             {

@@ -12,6 +12,7 @@ namespace Proje.Controllers
     public class MoviesController : Controller
     {
         ShowContext _context = new ShowContext();
+
         // GET: Movies
         public async Task<IActionResult> Index()
         {
@@ -39,7 +40,9 @@ namespace Proje.Controllers
         // GET: Movies/Create
         public IActionResult Create()
         {
-            return View();
+            Movie movie = new Movie();
+            movie.categoryCollection = _context.categories.ToList();
+            return View(movie);
         }
 
         // POST: Movies/Create
@@ -47,8 +50,9 @@ namespace Proje.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("movieId,movieTitle,movieYear,moviePoster,movieRating,movieStory,movieRunningTime")] Movie movie)
+        public async Task<IActionResult> Create([Bind("movieId,movieTitle,movieYear,moviePoster,movieRating,movieStory,movieRunningTime,movieCategories,movieCategoryArray")] Movie movie)
         {
+            movie.movieCategories = string.Join(",", movie.movieCategoryArray);
             if (ModelState.IsValid)
             {
                 _context.Add(movie);
@@ -79,7 +83,7 @@ namespace Proje.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("movieId,movieTitle,movieYear,moviePoster,movieRating,movieStory,movieRunningTime")] Movie movie)
+        public async Task<IActionResult> Edit(int id, [Bind("movieId,movieTitle,movieYear,moviePoster,movieRating,movieStory,movieRunningTime,movieCategories")] Movie movie)
         {
             if (id != movie.movieId)
             {

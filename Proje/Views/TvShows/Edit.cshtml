@@ -49,6 +49,11 @@
                 <span asp-validation-for="showStory" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="showCategories" class="control-label"></label>
+                <input asp-for="showCategories" class="form-control" />
+                <span asp-validation-for="showCategories" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>
         </form>

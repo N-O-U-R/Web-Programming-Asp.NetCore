@@ -13,25 +13,13 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.movieTitle)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.movieYear)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.moviePoster)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.movieTitle)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.movieRating)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.movieStory)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.movieRunningTime)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.movieCategories)
             </th>
             <th></th>
         </tr>
@@ -40,26 +28,15 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.movieTitle)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.movieYear)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.moviePoster)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.movieTitle)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.movieRating)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.movieStory)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.movieRunningTime)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.movieCategories)
-            </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.movieId">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.movieId">Details</a> |

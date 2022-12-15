@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -29,6 +30,19 @@ namespace Proje.Controllers
 
             var movie = await _context.movies
                 .FirstOrDefaultAsync(m => m.movieId == id);
+
+            movie.movieCategoryArray = movie.movieCategories.Split(",");
+            string[] categoryArray = new string[movie.movieCategoryArray.Length];
+            int i = 0;
+            foreach (var item in movie.movieCategoryArray)
+            {
+                categoryArray[i] = (from x in _context.categories
+                                    where x.categoryId == Int32.Parse(item)
+                                    select x.categoryName).FirstOrDefault();
+                i++;
+            }
+            movie.movieCategories = String.Join(",", categoryArray);
+
             if (movie == null)
             {
                 return NotFound();
@@ -71,6 +85,8 @@ namespace Proje.Controllers
             }
 
             var movie = await _context.movies.FindAsync(id);
+            movie.movieCategoryArray = movie.movieCategories.Split(",");
+            movie.categoryCollection = _context.categories.ToList();
             if (movie == null)
             {
                 return NotFound();
@@ -89,6 +105,8 @@ namespace Proje.Controllers
             {
                 return NotFound();
             }
+
+            movie.movieCategories = String.Join(",", movie.movieCategoryArray);
 
             if (ModelState.IsValid)
             {

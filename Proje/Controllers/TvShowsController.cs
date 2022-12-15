@@ -29,6 +29,20 @@ namespace Proje.Controllers
 
             var tvShow = await _context.tvShows
                 .FirstOrDefaultAsync(m => m.showId == id);
+
+            tvShow.showCategoryArray = tvShow.showCategories.Split(",");
+            string[] categoryArray = new string[tvShow.showCategoryArray.Length];
+            int i = 0;
+            foreach (var item in tvShow.showCategoryArray)
+            {
+                categoryArray[i] = (from x in _context.categories
+                                    where x.categoryId == Int32.Parse(item)
+                                    select x.categoryName).FirstOrDefault();
+                i++;
+            }
+            tvShow.showCategories = String.Join(",", categoryArray);
+
+
             if (tvShow == null)
             {
                 return NotFound();
@@ -71,6 +85,10 @@ namespace Proje.Controllers
             }
 
             var tvShow = await _context.tvShows.FindAsync(id);
+
+            tvShow.showCategoryArray = tvShow.showCategories.Split(",");
+            tvShow.categoryCollection = _context.categories.ToList();
+
             if (tvShow == null)
             {
                 return NotFound();
@@ -89,6 +107,8 @@ namespace Proje.Controllers
             {
                 return NotFound();
             }
+
+            tvShow.showCategories = String.Join(",", tvShow.showCategoryArray);
 
             if (ModelState.IsValid)
             {

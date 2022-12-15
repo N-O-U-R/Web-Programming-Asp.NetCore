@@ -50,7 +50,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="animeCategories" class="control-label"></label>
-                <input asp-for="animeCategories" class="form-control" />
+                @Html.ListBoxFor(x => x.animeCategoryArray, new MultiSelectList(Model.categoryCollection,"categoryId","categoryName"),new {id= "multiSelectDropdown",multiple="multiple"})
                 <span asp-validation-for="animeCategories" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -65,5 +65,15 @@
 </div>
 
 @section Scripts {
+    <script>
+
+        $(function () {
+            $("#multiSelectDropdown").chosen({
+                width: "100%",
+                disable_search_thresholder: 5
+            });
+
+        });
+    </script>
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

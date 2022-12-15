@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Proje.Controllers
 {
+    [Authorize]
     public class DashboardController : Controller
     {
-        public IActionResult Index()
+        public IActionResult Display()
         {
             return View();
         }

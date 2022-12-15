@@ -21,13 +21,39 @@ namespace Proje.Repositories.Implementation
         }
         public int MyProperty { get; set; }
 
+        public async Task<Status> ChangePasswordAsync(ChangePasswordModel model, string username)
+        {
+            var status = new Status();
+
+            var user = await userManager.FindByNameAsync(username);
+            if (user == null)
+            {
+                status.Message = "User does not exist";
+                status.StatusCode = 0;
+                return status;
+            }
+            var result = await userManager.ChangePasswordAsync(user, model.CurrentPassword, model.NewPassword);
+            if (result.Succeeded)
+            {
+                status.Message = "Password has updated successfully";
+                status.StatusCode = 1;
+            }
+            else
+            {
+                status.Message = "Some error occcured";
+                status.StatusCode = 0;
+            }
+            return status;
+
+        }
+
         public async Task<Status> LoginAsync(Login model)
         {
            var status = new Status();   
             var user = await userManager.FindByNameAsync(model.UserName);
             if (user == null)
             {
-                status.StatuCode = 0;
+                status.StatusCode = 0;
                 status.Message = "User could not found  ";
                 return status; 
             }
@@ -35,7 +61,7 @@ namespace Proje.Repositories.Implementation
              
             if (!await userManager.CheckPasswordAsync(user,  model.PassWord))
             {
-                status.StatuCode = 0;
+                status.StatusCode = 0;
                 status.Message = "Password Invalid ";
                 return status;  
             }
@@ -54,28 +80,25 @@ namespace Proje.Repositories.Implementation
                     authClaims.Add( new Claim (ClaimTypes.Role , userRole)); 
                 }
                 //last check 
-                status.StatuCode = 1;
+                status.StatusCode = 1;
                 status.Message = "Log in went Succssesfully  ";
                 return status;  
 
             }
             else if(!signInResult.IsLockedOut)
             {
-                status.StatuCode = 0 ;
-                status.Message = "User is LOcked out ";
+                status.StatusCode = 0 ;
+                status.Message = "User is Locked out ";
                 return status;
             }
 
             else
             {
-                status.StatuCode = 0 ;
+                status.StatusCode = 0 ;
                 status.Message = "  Loginig in failed  ";
                 return status;
 
             }
-
-
-
 
 
         }
@@ -92,14 +115,14 @@ namespace Proje.Repositories.Implementation
            var userExists= await userManager.FindByNameAsync(model.UserName);
             if (userExists != null)
             {
-                status.StatuCode = 0;
+                status.StatusCode = 0;
                 status.Message = "user is already exists ";
                 return status; 
             }
             ApplicationUser user = new ApplicationUser()
             {
                 SecurityStamp = Guid.NewGuid().ToString(),
-                Name = model.UserName,
+                FullName = model.UserName,
                 Email = model.Email,
                 UserName = model.UserName,
                 EmailConfirmed = true ,  
@@ -107,7 +130,7 @@ namespace Proje.Repositories.Implementation
             var result = await userManager.CreateAsync(user, model.PassWord); 
             if(!result.Succeeded)
             {
-                status.StatuCode = 0;
+                status.StatusCode = 0;
                 status.Message = "user or password invalid ";
                 return status; 
             }
@@ -119,7 +142,7 @@ namespace Proje.Repositories.Implementation
             if(await roleManager.RoleExistsAsync(model.Role))
             { await userManager.AddToRoleAsync(user, model.Role); }
 
-            status.StatuCode = 1;
+            status.StatusCode = 1;
             status.Message = "User has Registered Successfully  ";
             return status ; 
                 

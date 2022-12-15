@@ -38,8 +38,8 @@
                 <a class = "navbar-brand" herf="#">web proje</a>
             </div>
             <ul class ="nav navbar-nav">
-                <li calss="active"><a href="#">Home</a></li>
-                <li><a href="Dashboard/Display">Dashboard</a></li>
+                <li calss="active"><a href="~/Home/Index">Home</a></li>
+                <li><a href="~/Dashboard/Display">Dashboard</a></li>
                @if(User.IsInRole("admin"))
                 {
                   <li><a href="Admin/Display">Admin page</a></li>

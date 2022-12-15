@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.CodeAnalysis.Scripting;
+using System;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Proje.Models
@@ -27,14 +29,15 @@ namespace Proje.Models
         [Range(1950, 2023, ErrorMessage = "Please enter a correct value.")]
         public int animeEndYear { get; set; }
         [Display(Name = "Plot Summery")]
-
+            
         public string animeStory { get; set; }
-        [NotMapped]
-        public ICollection<Category> categoryCollection { get; set; }
         [Display(Name = "Categories")]
+        public string? animeCategories { get; set; }
         [NotMapped]
-        public string[] animeCategories { get; set; }
-
+        public IEnumerable<Category>? categoryCollection { get; set; }
+        
+        [NotMapped]
+        public string[]? animeCategoryArray { get; set; }
 
     }
 }

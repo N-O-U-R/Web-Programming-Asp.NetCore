@@ -12,6 +12,7 @@ namespace Proje.Controllers
     public class AnimesController : Controller
     {
         ShowContext _context = new ShowContext();
+
         // GET: Animes
         public async Task<IActionResult> Index()
         {
@@ -21,6 +22,7 @@ namespace Proje.Controllers
         // GET: Animes/Details/5
         public async Task<IActionResult> Details(int? id)
         {
+            
             if (id == null || _context.animes == null)
             {
                 return NotFound();
@@ -28,6 +30,18 @@ namespace Proje.Controllers
 
             var anime = await _context.animes
                 .FirstOrDefaultAsync(m => m.animeId == id);
+            
+            anime.animeCategoryArray = anime.animeCategories.Split(",");
+            string[] categoryArray = new string[anime.animeCategoryArray.Length];
+            int i = 0;
+            foreach (var item in anime.animeCategoryArray)
+            {
+                categoryArray[i]= (from x in _context.categories
+                                  where x.categoryId == Int32.Parse(item)
+                                   select x.categoryName).FirstOrDefault();
+                i++;
+            }
+            anime.animeCategories = String.Join(",",categoryArray);
             if (anime == null)
             {
                 return NotFound();
@@ -39,7 +53,10 @@ namespace Proje.Controllers
         // GET: Animes/Create
         public IActionResult Create()
         {
-            return View();
+            Anime anime = new Anime();
+            
+            anime.categoryCollection = _context.categories.ToList();
+            return View(anime);
         }
 
         // POST: Animes/Create
@@ -47,8 +64,11 @@ namespace Proje.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("animeId,animeTitle,animePoster,animeRating,animeEpisodes,animeStartYear,animeEndYear,animeStory")] Anime anime)
+        public async Task<IActionResult> Create([Bind("animeId,animeTitle,animePoster,animeRating,animeEpisodes,animeStartYear,animeEndYear,animeStory,animeCategories,animeCategoryArray")] Anime anime)
         {
+            anime.animeCategories = string.Join(",", anime.animeCategoryArray);
+
+            
             if (ModelState.IsValid)
             {
                 _context.Add(anime);
@@ -67,6 +87,8 @@ namespace Proje.Controllers
             }
 
             var anime = await _context.animes.FindAsync(id);
+            anime.animeCategoryArray = anime.animeCategories.Split(",");
+            anime.categoryCollection = _context.categories.ToList();
             if (anime == null)
             {
                 return NotFound();
@@ -79,13 +101,13 @@ namespace Proje.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("animeId,animeTitle,animePoster,animeRating,animeEpisodes,animeStartYear,animeEndYear,animeStory")] Anime anime)
+        public async Task<IActionResult> Edit(int id, [Bind("animeId,animeTitle,animePoster,animeRating,animeEpisodes,animeStartYear,animeEndYear,animeStory,animeCategories,animeCategoryArray")] Anime anime)
         {
             if (id != anime.animeId)
             {
                 return NotFound();
             }
-
+            anime.animeCategories = string.Join(",",anime.animeCategoryArray);
             if (ModelState.IsValid)
             {
                 try

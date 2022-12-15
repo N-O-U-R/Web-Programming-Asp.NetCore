@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -12,6 +13,7 @@ namespace Proje.Controllers
     public class MoviesController : Controller
     {
         ShowContext _context = new ShowContext();
+
         // GET: Movies
         public async Task<IActionResult> Index()
         {
@@ -28,6 +30,19 @@ namespace Proje.Controllers
 
             var movie = await _context.movies
                 .FirstOrDefaultAsync(m => m.movieId == id);
+
+            movie.movieCategoryArray = movie.movieCategories.Split(",");
+            string[] categoryArray = new string[movie.movieCategoryArray.Length];
+            int i = 0;
+            foreach (var item in movie.movieCategoryArray)
+            {
+                categoryArray[i] = (from x in _context.categories
+                                    where x.categoryId == Int32.Parse(item)
+                                    select x.categoryName).FirstOrDefault();
+                i++;
+            }
+            movie.movieCategories = String.Join(",", categoryArray);
+
             if (movie == null)
             {
                 return NotFound();
@@ -39,7 +54,9 @@ namespace Proje.Controllers
         // GET: Movies/Create
         public IActionResult Create()
         {
-            return View();
+            Movie movie = new Movie();
+            movie.categoryCollection = _context.categories.ToList();
+            return View(movie);
         }
 
         // POST: Movies/Create
@@ -47,8 +64,9 @@ namespace Proje.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("movieId,movieTitle,movieYear,moviePoster,movieRating,movieStory,movieRunningTime")] Movie movie)
+        public async Task<IActionResult> Create([Bind("movieId,movieTitle,movieYear,moviePoster,movieRating,movieStory,movieRunningTime,movieCategories,movieCategoryArray")] Movie movie)
         {
+            movie.movieCategories = string.Join(",", movie.movieCategoryArray);
             if (ModelState.IsValid)
             {
                 _context.Add(movie);
@@ -67,6 +85,8 @@ namespace Proje.Controllers
             }
 
             var movie = await _context.movies.FindAsync(id);
+            movie.movieCategoryArray = movie.movieCategories.Split(",");
+            movie.categoryCollection = _context.categories.ToList();
             if (movie == null)
             {
                 return NotFound();
@@ -79,12 +99,14 @@ namespace Proje.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("movieId,movieTitle,movieYear,moviePoster,movieRating,movieStory,movieRunningTime")] Movie movie)
+        public async Task<IActionResult> Edit(int id, [Bind("movieId,movieTitle,movieYear,moviePoster,movieRating,movieStory,movieRunningTime,movieCategories")] Movie movie)
         {
             if (id != movie.movieId)
             {
                 return NotFound();
             }
+
+            movie.movieCategories = String.Join(",", movie.movieCategoryArray);
 
             if (ModelState.IsValid)
             {

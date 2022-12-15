@@ -29,6 +29,20 @@ namespace Proje.Controllers
 
             var tvShow = await _context.tvShows
                 .FirstOrDefaultAsync(m => m.showId == id);
+
+            tvShow.showCategoryArray = tvShow.showCategories.Split(",");
+            string[] categoryArray = new string[tvShow.showCategoryArray.Length];
+            int i = 0;
+            foreach (var item in tvShow.showCategoryArray)
+            {
+                categoryArray[i] = (from x in _context.categories
+                                    where x.categoryId == Int32.Parse(item)
+                                    select x.categoryName).FirstOrDefault();
+                i++;
+            }
+            tvShow.showCategories = String.Join(",", categoryArray);
+
+
             if (tvShow == null)
             {
                 return NotFound();
@@ -40,7 +54,9 @@ namespace Proje.Controllers
         // GET: TvShows/Create
         public IActionResult Create()
         {
-            return View();
+            TvShow show = new TvShow();
+            show.categoryCollection = _context.categories.ToList();
+            return View(show);
         }
 
         // POST: TvShows/Create
@@ -48,8 +64,9 @@ namespace Proje.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("showId,showTitle,showPoster,showStartYear,showEndYear,showEpisodes,showRating,showStory")] TvShow tvShow)
+        public async Task<IActionResult> Create([Bind("showId,showTitle,showPoster,showStartYear,showEndYear,showEpisodes,showRating,showStory,showCategories,showCategoryArray")] TvShow tvShow)
         {
+            tvShow.showCategories = string.Join(",", tvShow.showCategoryArray);
             if (ModelState.IsValid)
             {
                 _context.Add(tvShow);
@@ -68,6 +85,10 @@ namespace Proje.Controllers
             }
 
             var tvShow = await _context.tvShows.FindAsync(id);
+
+            tvShow.showCategoryArray = tvShow.showCategories.Split(",");
+            tvShow.categoryCollection = _context.categories.ToList();
+
             if (tvShow == null)
             {
                 return NotFound();
@@ -80,12 +101,14 @@ namespace Proje.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("showId,showTitle,showPoster,showStartYear,showEndYear,showEpisodes,showRating,showStory")] TvShow tvShow)
+        public async Task<IActionResult> Edit(int id, [Bind("showId,showTitle,showPoster,showStartYear,showEndYear,showEpisodes,showRating,showStory,showCategories")] TvShow tvShow)
         {
             if (id != tvShow.showId)
             {
                 return NotFound();
             }
+
+            tvShow.showCategories = String.Join(",", tvShow.showCategoryArray);
 
             if (ModelState.IsValid)
             {

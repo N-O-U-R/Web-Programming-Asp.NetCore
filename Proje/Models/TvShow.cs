@@ -25,11 +25,12 @@ namespace Proje.Models
         public int showRating { get; set; }
         [Display(Name = "Plot Summery")]
         public string showStory { get; set; }
-        [NotMapped]
-        public ICollection<Category> categoryCollection { get; set; }
         [Display(Name = "Categories")]
+        public string? showCategories { get; set; }
         [NotMapped]
-        public string[] showCategories { get; set; }
+        public IEnumerable<Category>? categoryCollection { get; set; }
+        [NotMapped]
+        public string[]? showCategoryArray { get; set; }
 
     }
 }

@@ -22,11 +22,12 @@ namespace Proje.Models
         [Display(Name = "Running Time")]
         [Range(0, 450, ErrorMessage = "Please enter a correct value.")]
         public int movieRunningTime { get; set; }
-        [NotMapped]
-        public ICollection<Category> categoryCollection { get; set; }
         [Display(Name = "Categories")]
+        public string? movieCategories { get; set; }
         [NotMapped]
-        public string[] movieCategories { get; set; }
+        public IEnumerable<Category>? categoryCollection { get; set; }
+        [NotMapped]
+        public string[]? movieCategoryArray { get; set; }
 
     }
 }

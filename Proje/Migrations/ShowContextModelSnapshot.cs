@@ -29,6 +29,9 @@ namespace Proje.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("animeId"));
 
+                    b.Property<string>("animeCategories")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("animeEndYear")
                         .HasColumnType("int");
 
@@ -83,6 +86,9 @@ namespace Proje.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("movieId"));
 
+                    b.Property<string>("movieCategories")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("moviePoster")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -116,6 +122,9 @@ namespace Proje.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("showId"));
+
+                    b.Property<string>("showCategories")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("showEndYear")
                         .HasColumnType("int");

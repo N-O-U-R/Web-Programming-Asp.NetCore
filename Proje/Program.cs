@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using NuGet.Protocol.Core.Types;
 using Proje.Models.Domain;
-using Proje.Repositories.Abstract;
+
 using Proje.Repositories.Implementation;
 
 var builder = WebApplication.CreateBuilder(args);

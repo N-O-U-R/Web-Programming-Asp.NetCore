@@ -22,7 +22,8 @@ namespace Proje.Migrations
                     animeEpisodes = table.Column<int>(type: "int", nullable: false),
                     animeStartYear = table.Column<int>(type: "int", nullable: false),
                     animeEndYear = table.Column<int>(type: "int", nullable: false),
-                    animeStory = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    animeStory = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    animeCategories = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -53,7 +54,8 @@ namespace Proje.Migrations
                     moviePoster = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     movieRating = table.Column<int>(type: "int", nullable: false),
                     movieStory = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    movieRunningTime = table.Column<int>(type: "int", nullable: false)
+                    movieRunningTime = table.Column<int>(type: "int", nullable: false),
+                    movieCategories = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -72,7 +74,8 @@ namespace Proje.Migrations
                     showEndYear = table.Column<int>(type: "int", nullable: false),
                     showEpisodes = table.Column<int>(type: "int", nullable: false),
                     showRating = table.Column<int>(type: "int", nullable: false),
-                    showStory = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    showStory = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    showCategories = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {

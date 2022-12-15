@@ -13,25 +13,13 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.showTitle)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.showPoster)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.showStartYear)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.showEndYear)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.showEpisodes)
+                @Html.DisplayNameFor(model => model.showTitle)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.showRating)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.showStory)
             </th>
             <th></th>
         </tr>
@@ -40,25 +28,13 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.showTitle)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.showPoster)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.showStartYear)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.showEndYear)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.showEpisodes)
+                @Html.DisplayFor(modelItem => item.showTitle)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.showRating)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.showStory)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.showId">Edit</a> |

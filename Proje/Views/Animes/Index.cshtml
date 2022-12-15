@@ -13,26 +13,14 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.animeTitle)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.animePoster)
+                @Html.DisplayNameFor(model => model.animeTitle)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.animeRating)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.animeEpisodes)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.animeStartYear)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.animeEndYear)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.animeStory)
-            </th>
             <th></th>
         </tr>
     </thead>
@@ -40,26 +28,15 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.animeTitle)
+                <img src="@item.animePoster" height="150" width="100" asp-append-version="true">
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.animePoster)
+                @Html.DisplayFor(modelItem => item.animeTitle)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.animeRating)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.animeEpisodes)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.animeStartYear)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.animeEndYear)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.animeStory)
-            </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.animeId">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.animeId">Details</a> |

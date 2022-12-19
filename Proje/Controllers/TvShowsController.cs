@@ -14,9 +14,34 @@ namespace Proje.Controllers
         ShowContext _context = new ShowContext();
 
         // GET: TvShows
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string sortBy, string search)
         {
-              return View(await _context.tvShows.ToListAsync());
+            var tvShows = from a in _context.tvShows
+                         select a;
+
+            if (!string.IsNullOrEmpty(search))
+            {
+                tvShows = tvShows.Where(x => x.showTitle.Contains(search));
+            }
+
+            switch (sortBy)
+            {
+                case "title":
+                default:
+                    tvShows = tvShows.OrderBy(x => x.showTitle);
+                    break;
+
+                case "year":
+                    tvShows = tvShows.OrderByDescending(x => x.showStartYear);
+                    break;
+                case "rating":
+                    tvShows = tvShows.OrderByDescending(x => x.showRating);
+                    break;
+                case "episodes":
+                    tvShows = tvShows.OrderByDescending(x => x.showEpisodes);
+                    break;
+            }
+            return View(await _context.tvShows.ToListAsync());
         }
 
         // GET: TvShows/Details/5

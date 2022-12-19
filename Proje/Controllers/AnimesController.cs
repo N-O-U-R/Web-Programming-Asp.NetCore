@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -14,11 +15,37 @@ namespace Proje.Controllers
         ShowContext _context = new ShowContext();
 
         // GET: Animes
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string sortBy,string search)
         {
-              return View(await _context.animes.ToListAsync());
-        }
+            var animes = from a in _context.animes
+                         select a;
 
+            if(!string.IsNullOrEmpty(search))
+            {
+                animes = animes.Where(x => x.animeTitle.Contains(search));
+            }
+
+            switch (sortBy)
+            {
+                case "title":
+                default:
+                    animes = animes.OrderBy(x => x.animeTitle);
+                    break;
+
+                case "year":
+                    animes = animes.OrderByDescending(x => x.animeStartYear);
+                    break;
+                case "rating":
+                    animes = animes.OrderByDescending(x => x.animeRating);
+                    break;
+                case "episodes":
+                    animes = animes.OrderByDescending(x => x.animeEpisodes);
+                    break;
+            }
+
+            return View(await animes.ToListAsync());
+        }
+        
         // GET: Animes/Details/5
         public async Task<IActionResult> Details(int? id)
         {

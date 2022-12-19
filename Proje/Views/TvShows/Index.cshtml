@@ -4,16 +4,43 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Tv Shows</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
 </p>
+
+<form method="get" asp-action="Index" id="Form" class="form-inline">
+    <div class="row">
+        <div class="col input-group">
+            <label class="col-sm-2 col-form-label">Sort By:  </label>
+            <div class="input-group-append">
+                <select id="sortBy" name="sortBy" class="form-select">
+                    <option selected value="">Please select an option</option>
+                    <option value="title">Title</option>
+                    <option value="year">Most recent</option>
+                    <option value="rating">Rating</option>
+                    <option value="episodes">Episdoes</option>
+                </select>
+            </div>
+
+
+        </div>
+        <div class="col"></div>
+        <div class="col input-group ">
+            <input type="text" class="form-control" name="search" autocomplete="off">
+            <div class="input-group-append">
+                <button class="btn btn-info" type="submit" value="Search">Search</button>
+            </div>
+
+        </div>
+</form>
+
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.showPoster)
+                
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.showTitle)
@@ -28,7 +55,7 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.showPoster)
+                <img src="@item.showPoster" height="150" width="100" asp-append-version="true">
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.showTitle)
@@ -45,3 +72,12 @@
 }
     </tbody>
 </table>
+
+@section Scripts {
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script>
+        $("#sortBy").on('change', function () {
+            document.forms["Form"].submit();
+        });
+    </script>
+    }

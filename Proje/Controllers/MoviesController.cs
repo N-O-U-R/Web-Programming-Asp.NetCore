@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Xml.Linq;
@@ -15,9 +16,34 @@ namespace Proje.Controllers
         ShowContext _context = new ShowContext();
 
         // GET: Movies
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string sortBy, string search)
         {
-              return View(await _context.movies.ToListAsync());
+            var movies = from a in _context.movies
+                         select a;
+
+            if (!string.IsNullOrEmpty(search))
+            {
+                movies = movies.Where(x => x.movieTitle.Contains(search));
+            }
+
+            switch (sortBy)
+            {
+                case "title":
+                default:
+                    movies = movies.OrderBy(x => x.movieTitle);
+                    break;
+
+                case "year":
+                    movies = movies.OrderByDescending(x => x.movieYear);
+                    break;
+                case "rating":
+                    movies = movies.OrderByDescending(x => x.movieRating);
+                    break;
+                case "runningTime":
+                    movies = movies.OrderByDescending(x => x.movieRunningTime);
+                    break;
+            }
+            return View(await movies.ToListAsync());
         }
 
         // GET: Movies/Details/5

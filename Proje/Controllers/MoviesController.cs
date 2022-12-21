@@ -29,16 +29,18 @@ namespace Proje.Controllers
             switch (sortBy)
             {
                 case "title":
-                default:
                     movies = movies.OrderBy(x => x.movieTitle);
+                    break;
+                case "rating":
+                    
+                default:
+                    movies = movies.OrderByDescending(x => x.movieRating);
                     break;
 
                 case "year":
                     movies = movies.OrderByDescending(x => x.movieYear);
                     break;
-                case "rating":
-                    movies = movies.OrderByDescending(x => x.movieRating);
-                    break;
+                
                 case "runningTime":
                     movies = movies.OrderByDescending(x => x.movieRunningTime);
                     break;

@@ -8,9 +8,10 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
 	<link rel="stylesheet" href="~/Proje.styles.css" asp-append-version="true" />
 	<link href="~/css/chosen/chosen.min.css" rel="stylesheet" />
+    <script src="https://kit.fontawesome.com/07b62ac2c8.js" crossorigin="anonymous"></script>
 </head>
 <body>
-   @* <header>
+    <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Proje</a>
@@ -24,34 +25,20 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Animes" asp-action="Index">Anime</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Movies" asp-action="Index">Movie</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="TvShows" asp-action="Index">Series</a>
                         </li>
                     </ul>
                 </div>
             </div>
         </nav>
-    </header>*@
+    </header>
     @*//added new *@
-  <nav class="navbar navbar-defualt">
-        <div class ="container-fluid">
-            <div class = navbar-header >
-                <a class = "navbar-brand" herf="#">web proje</a>
-            </div>
-            <ul class ="nav navbar-nav">
-                <li calss="active"><a href="~/Home/Index">Home</a></li>
-                <li><a href="~/Dashboard/Display">Dashboard</a></li>
-               @if(User.IsInRole("admin"))
-                {
-                  <li><a href="Admin/Display">Admin page</a></li>
-                }
-                 @if (!string.IsNullOrEmpty(User.Identity.Name))
-                {
-                    <li><a href="/UserAuthentication/ChangePassword">ChangePassword</a></li>
-                    <li><a href="/UserAuthentication/Logout">Logout</a></li>
-                }
-            </ul>
-        </div>
-    </nav>
 
     <div class="container">
         <main role="main" class="pb-3">
@@ -59,11 +46,11 @@
         </main>
     </div>
 
-    @*<footer class="border-top footer text-muted">
+    <footer class="border-top footer text-muted">
         <div class="container">
             &copy; 2022 - Proje - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
-    </footer>*@
+    </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

@@ -3,46 +3,94 @@
 @{
     ViewData["Title"] = "Index";
 }
+
 <style>
-    .search {
-        float: right;
+    .Form1
+    {
+        background-color: #222831;
+        border-radius: 5px;
+        padding:7px 7px;
+        padding-inline:3% 3%;
+        color:#EEEEEE;
     }
+    .btn-info{
+        border-block-color: #00ADB5;
+        background-color: #00ADB5;
+    }
+    .list-box
+    {
+        -webkit-box-shadow: 0 0 35px 0 rgba(130, 130, 130, 0.2);
+        box-shadow: 0 0 35px 0 rgba(130, 130, 130, 0.2);
+        border-radius: 10px;
+        padding: 20px 35px;
+    }
+    table {
+          border-collapse: separate;
+          border-spacing: 0 15px;
+          vertical-align: middle;
+          padding-inline:5% 5%;
+          font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+          font-weight:bold;
+          font-size:24px;
+    }
+    .pl{
+        text-align:left;
+        padding-inline-start:20%;
+    }
+    
+    table td{
+        vertical-align: middle;
+    }
+    .img-card {
+        background: #ffffff;
+        box-shadow: 0px 6px 18px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        max-width: 150px;
+        margin: 2em;
+        border-radius: 10px;
+        display: inline-block;
+    }
+.img-card:hover {
+          -webkit-transform: scale(1.03);
+                  transform: scale(1.03);
+          box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.08);
+}
+.fa-star{
+    color:#D5AB55;
+}
 </style>
 
-<h1>Animes</h1>
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-    <form method="get" asp-action="Index" id="Form" class="form-inline">
+<div>
+    <form method="get" asp-action="Index" id="Form" class="form-inline Form1">
         <div class="row">
             <div class="col input-group">
-            <label class="col-sm-2 col-form-label">Sort By:  </label>
-            <div class="input-group-append">
-                <select id="sortBy" name="sortBy" class="form-select">
-                    <option selected value="">Please select an option</option>
-                    <option value="title">Title</option>
-                    <option value="year">Most recent</option>
-                    <option value="rating">Rating</option>
-                    <option value="episodes">Number of episodes</option>
-                </select>
+                <label class="col-sm-2 col-form-label" >Sort By:  </label>
+                <div class="input-group-append">
+                    <select id="sortBy" name="sortBy" class="form-select">
+                        <option selected value="">Please select an option</option>
+                        <option value="title">Title</option>
+                        <option value="year">Most recent</option>
+                        <option value="rating">Rating</option>
+                        <option value="episodes">Number of episodes</option>
+                    </select>
+                </div>
+
+
             </div>
-            
-            
+            <div class="col"></div>
+            <div class="col input-group ">
+                <input type="text" class="form-control" name="search" autocomplete="off">
+                <div class="input-group-append">
+                    <button class="btn btn-info" type="submit" value="Search">Search</button>
+                </div>
             </div>
-        <div class="col"></div>
-        <div class="col input-group ">
-            <input type="text" class="form-control" name="search" autocomplete="off">
-            <div class="input-group-append">
-                <button class="btn btn-info" type="submit" value="Search">Search</button>
-            </div>
-            
-        </div>
     </form>
+</div>
+    
 
 
 <table class="table">
-    <thead>
+@*    <thead>
         <tr>
             <th>
                 
@@ -56,27 +104,32 @@
             <th>
             <th></th>
         </tr>
-    </thead>
+    </thead>*@
+ 
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                <img src="@item.animePoster" height="150" width="100" asp-append-version="true">
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.animeTitle)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.animeRating)
-            </td>   
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.animeId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.animeId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.animeId">Delete</a>
-            </td>
-        </tr>
-}
+    @foreach (var item in Model)
+        {
+            <tr class="list-box">
+                <td width="30%">
+                    <img src="@item.animePoster" class="img-card" asp-append-version="true">
+                </td>
+                <td class="pl">
+                        @Html.DisplayFor(modelItem => item.animeTitle)
+                </td>
+                <td class="text-left">
+                    <i class="fa-solid fa-star"></i>
+                        @Html.DisplayFor(modelItem => item.animeRating)
+                </td>
+
+                @*<td>
+                    <a asp-action="Edit" asp-route-id="@item.animeId">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.animeId">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.animeId">Delete</a>
+                </td>*@
+            </tr>
+        }
     </tbody>
+    
 </table>
 
 @section Scripts {

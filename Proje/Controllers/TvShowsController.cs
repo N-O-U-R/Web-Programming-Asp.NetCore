@@ -27,13 +27,15 @@ namespace Proje.Controllers
             switch (sortBy)
             {
                 case "title":
-                default:
                     tvShows = tvShows.OrderBy(x => x.showTitle);
                     break;
+
+
 
                 case "year":
                     tvShows = tvShows.OrderByDescending(x => x.showStartYear);
                     break;
+                default:
                 case "rating":
                     tvShows = tvShows.OrderByDescending(x => x.showRating);
                     break;
@@ -41,7 +43,7 @@ namespace Proje.Controllers
                     tvShows = tvShows.OrderByDescending(x => x.showEpisodes);
                     break;
             }
-            return View(await _context.tvShows.ToListAsync());
+            return View(await tvShows.ToListAsync());
         }
 
         // GET: TvShows/Details/5

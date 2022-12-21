@@ -28,13 +28,12 @@ namespace Proje.Controllers
             switch (sortBy)
             {
                 case "title":
-                default:
                     animes = animes.OrderBy(x => x.animeTitle);
                     break;
-
                 case "year":
                     animes = animes.OrderByDescending(x => x.animeStartYear);
                     break;
+                default:
                 case "rating":
                     animes = animes.OrderByDescending(x => x.animeRating);
                     break;

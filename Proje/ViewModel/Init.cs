@@ -38,6 +38,23 @@ namespace Proje.ViewModel
                 }
 
 
+                adminUserEmail = "b201210580@sakarya.edu.tr";
+
+                var adminUser1 = await userManager.FindByEmailAsync(adminUserEmail);
+                if (adminUser1 == null)
+                {
+                    var newAdminUser = new AppUser()
+                    {
+                        Name = "Admin User",
+                        UserName = "admin-user2",
+                        Email = adminUserEmail,
+                        EmailConfirmed = true
+                    };
+                    await userManager.CreateAsync(newAdminUser, "sau");
+                    await userManager.AddToRoleAsync(newAdminUser, userRoles.admin);
+                }
+
+
                 //string appUserEmail = "user@sakarya.edu.tr";
 
                 //var appUser = await userManager.FindByEmailAsync(appUserEmail);

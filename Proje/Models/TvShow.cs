@@ -22,7 +22,7 @@ namespace Proje.Models
 
         [Display(Name = "Rating")]
         [Range(0, 10, ErrorMessage = "Please enter a correct value.")]
-        public int showRating { get; set; }
+        public double showRating { get; set; }
         [Display(Name = "Plot Summery")]
         public string showStory { get; set; }
         [Display(Name = "Categories")]
@@ -32,5 +32,7 @@ namespace Proje.Models
         [NotMapped]
         public string[]? showCategoryArray { get; set; }
 
+
+       // public ICollection<tvShow_User>? tvShow_Users { get; set; }
     }
 }

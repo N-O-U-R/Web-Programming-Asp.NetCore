@@ -11,7 +11,12 @@ namespace Proje.Controllers
 {
     public class TvShowsController : Controller
     {
-        ShowContext _context = new ShowContext();
+        private readonly ShowContext _context;
+
+        public TvShowsController(ShowContext context)
+        {
+            _context = context;
+        }
 
         // GET: TvShows
         public async Task<IActionResult> Index(string sortBy, string search)

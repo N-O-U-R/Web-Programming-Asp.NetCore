@@ -13,7 +13,12 @@ namespace Proje.Controllers
 {
     public class MoviesController : Controller
     {
-        ShowContext _context = new ShowContext();
+        private readonly ShowContext _context;
+
+        public MoviesController(ShowContext context)
+        {
+            _context = context;
+        }
 
         // GET: Movies
         public async Task<IActionResult> Index(string sortBy, string search)

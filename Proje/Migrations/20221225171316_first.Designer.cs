@@ -5,25 +5,24 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Proje.Models.Domain;
+using Proje.Models;
 
 #nullable disable
 
-namespace Proje.Migrations.Database
+namespace Proje.Migrations
 {
-    [DbContext(typeof(DatabaseContext))]
-    [Migration("20221216125132_user")]
-    partial class user
+    [DbContext(typeof(ShowContext))]
+    [Migration("20221225171316_first")]
+    partial class first
     {
-        /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.0")
+                .HasAnnotation("ProductVersion", "6.0.12")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
-            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
@@ -58,7 +57,7 @@ namespace Proje.Migrations.Database
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("ClaimType")
                         .HasColumnType("nvarchar(max)");
@@ -83,7 +82,7 @@ namespace Proje.Migrations.Database
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("ClaimType")
                         .HasColumnType("nvarchar(max)");
@@ -158,7 +157,47 @@ namespace Proje.Migrations.Database
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("Proje.Models.Domain.ApplicationUser", b =>
+            modelBuilder.Entity("Proje.Models.Anime", b =>
+                {
+                    b.Property<int>("animeId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("animeId"), 1L, 1);
+
+                    b.Property<string>("animeCategories")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("animeEndYear")
+                        .HasColumnType("int");
+
+                    b.Property<int>("animeEpisodes")
+                        .HasColumnType("int");
+
+                    b.Property<string>("animePoster")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double>("animeRating")
+                        .HasColumnType("float");
+
+                    b.Property<int>("animeStartYear")
+                        .HasColumnType("int");
+
+                    b.Property<string>("animeStory")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("animeTitle")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("animeId");
+
+                    b.ToTable("animes");
+                });
+
+            modelBuilder.Entity("Proje.Models.AppUser", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -177,15 +216,15 @@ namespace Proje.Migrations.Database
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
 
-                    b.Property<string>("FullName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
 
                     b.Property<DateTimeOffset?>("LockoutEnd")
                         .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("NormalizedEmail")
                         .HasMaxLength(256)
@@ -227,6 +266,100 @@ namespace Proje.Migrations.Database
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
+            modelBuilder.Entity("Proje.Models.Category", b =>
+                {
+                    b.Property<int>("categoryId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("categoryId"), 1L, 1);
+
+                    b.Property<string>("categoryName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("categoryId");
+
+                    b.ToTable("categories");
+                });
+
+            modelBuilder.Entity("Proje.Models.Movie", b =>
+                {
+                    b.Property<int>("movieId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("movieId"), 1L, 1);
+
+                    b.Property<string>("movieCategories")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("moviePoster")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double>("movieRating")
+                        .HasColumnType("float");
+
+                    b.Property<int>("movieRunningTime")
+                        .HasColumnType("int");
+
+                    b.Property<string>("movieStory")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("movieTitle")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("movieYear")
+                        .HasColumnType("int");
+
+                    b.HasKey("movieId");
+
+                    b.ToTable("movies");
+                });
+
+            modelBuilder.Entity("Proje.Models.TvShow", b =>
+                {
+                    b.Property<int>("showId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("showId"), 1L, 1);
+
+                    b.Property<string>("showCategories")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("showEndYear")
+                        .HasColumnType("int");
+
+                    b.Property<int>("showEpisodes")
+                        .HasColumnType("int");
+
+                    b.Property<string>("showPoster")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double>("showRating")
+                        .HasColumnType("float");
+
+                    b.Property<int>("showStartYear")
+                        .HasColumnType("int");
+
+                    b.Property<string>("showStory")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("showTitle")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("showId");
+
+                    b.ToTable("tvShows");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -238,7 +371,7 @@ namespace Proje.Migrations.Database
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("Proje.Models.Domain.ApplicationUser", null)
+                    b.HasOne("Proje.Models.AppUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -247,7 +380,7 @@ namespace Proje.Migrations.Database
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("Proje.Models.Domain.ApplicationUser", null)
+                    b.HasOne("Proje.Models.AppUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -262,7 +395,7 @@ namespace Proje.Migrations.Database
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Proje.Models.Domain.ApplicationUser", null)
+                    b.HasOne("Proje.Models.AppUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -271,7 +404,7 @@ namespace Proje.Migrations.Database
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("Proje.Models.Domain.ApplicationUser", null)
+                    b.HasOne("Proje.Models.AppUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)

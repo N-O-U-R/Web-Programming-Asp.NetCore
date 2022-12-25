@@ -3,14 +3,32 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace Proje.Migrations.Database
+namespace Proje.Migrations
 {
-    /// <inheritdoc />
-    public partial class user : Migration
+    public partial class show : Migration
     {
-        /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "animes",
+                columns: table => new
+                {
+                    animeId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    animeTitle = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    animePoster = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    animeRating = table.Column<double>(type: "float", nullable: false),
+                    animeEpisodes = table.Column<int>(type: "int", nullable: false),
+                    animeStartYear = table.Column<int>(type: "int", nullable: false),
+                    animeEndYear = table.Column<int>(type: "int", nullable: false),
+                    animeStory = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    animeCategories = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_animes", x => x.animeId);
+                });
+
             migrationBuilder.CreateTable(
                 name: "AspNetRoles",
                 columns: table => new
@@ -30,7 +48,6 @@ namespace Proje.Migrations.Database
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    FullName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -49,6 +66,58 @@ namespace Proje.Migrations.Database
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "categories",
+                columns: table => new
+                {
+                    categoryId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    categoryName = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_categories", x => x.categoryId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "movies",
+                columns: table => new
+                {
+                    movieId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    movieTitle = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    movieYear = table.Column<int>(type: "int", nullable: false),
+                    moviePoster = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    movieRating = table.Column<double>(type: "float", nullable: false),
+                    movieStory = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    movieRunningTime = table.Column<int>(type: "int", nullable: false),
+                    movieCategories = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_movies", x => x.movieId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "tvShows",
+                columns: table => new
+                {
+                    showId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    showTitle = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    showPoster = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    showStartYear = table.Column<int>(type: "int", nullable: false),
+                    showEndYear = table.Column<int>(type: "int", nullable: false),
+                    showEpisodes = table.Column<int>(type: "int", nullable: false),
+                    showRating = table.Column<double>(type: "float", nullable: false),
+                    showStory = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    showCategories = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_tvShows", x => x.showId);
                 });
 
             migrationBuilder.CreateTable(
@@ -97,8 +166,8 @@ namespace Proje.Migrations.Database
                 name: "AspNetUserLogins",
                 columns: table => new
                 {
-                    LoginProvider = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    ProviderKey = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    LoginProvider = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
+                    ProviderKey = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
                     ProviderDisplayName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
@@ -142,8 +211,8 @@ namespace Proje.Migrations.Database
                 columns: table => new
                 {
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    LoginProvider = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    LoginProvider = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
                     Value = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
@@ -197,9 +266,11 @@ namespace Proje.Migrations.Database
                 filter: "[NormalizedUserName] IS NOT NULL");
         }
 
-        /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "animes");
+
             migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");
 
@@ -214,6 +285,15 @@ namespace Proje.Migrations.Database
 
             migrationBuilder.DropTable(
                 name: "AspNetUserTokens");
+
+            migrationBuilder.DropTable(
+                name: "categories");
+
+            migrationBuilder.DropTable(
+                name: "movies");
+
+            migrationBuilder.DropTable(
+                name: "tvShows");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

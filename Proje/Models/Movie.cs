@@ -16,7 +16,7 @@ namespace Proje.Models
         public string moviePoster { get; set; }
         [Display(Name = "Rating")]
         [Range(0,10,ErrorMessage ="Please enter a correct value.")]
-        public int movieRating { get; set; }
+        public double movieRating { get; set; }
         [Display(Name = "Plot Summery")]
         public string movieStory { get; set; }
         [Display(Name = "Running Time")]
@@ -28,6 +28,8 @@ namespace Proje.Models
         public IEnumerable<Category>? categoryCollection { get; set; }
         [NotMapped]
         public string[]? movieCategoryArray { get; set; }
+
+        //public ICollection<Movie_User>? movie_Users { get; set; }
 
     }
 }

@@ -1,4 +1,5 @@
-﻿using Microsoft.CodeAnalysis.Scripting;
+﻿
+
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -18,7 +19,7 @@ namespace Proje.Models
 
         [Display(Name ="Rating")]
         [Range(0, 10, ErrorMessage = "Please enter a correct value.")]
-        public int animeRating { get; set; }
+        public double animeRating { get; set; }
         [Display(Name = "Number of episodes")]
         [Range(0, 2000, ErrorMessage = "Please enter a correct value.")]
         public int animeEpisodes { get; set; }
@@ -39,5 +40,6 @@ namespace Proje.Models
         [NotMapped]
         public string[]? animeCategoryArray { get; set; }
 
+        //public ICollection<Anime_User>? anime_Users { get; set; }
     }
 }

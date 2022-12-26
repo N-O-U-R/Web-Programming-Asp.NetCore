@@ -4,6 +4,7 @@ using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -21,6 +22,7 @@ namespace Proje.Controllers
         }
 
         // GET: Movies
+        [AllowAnonymous]
         public async Task<IActionResult> Index(string sortBy, string search)
         {
             var movies = from a in _context.movies
@@ -54,6 +56,7 @@ namespace Proje.Controllers
         }
 
         // GET: Movies/Details/5
+        [AllowAnonymous]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.movies == null)
@@ -85,6 +88,7 @@ namespace Proje.Controllers
         }
 
         // GET: Movies/Create
+        [Authorize(Roles ="admin")]
         public IActionResult Create()
         {
             Movie movie = new Movie();
@@ -97,6 +101,7 @@ namespace Proje.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Create([Bind("movieId,movieTitle,movieYear,moviePoster,movieRating,movieStory,movieRunningTime,movieCategories,movieCategoryArray")] Movie movie)
         {
             movie.movieCategories = string.Join(",", movie.movieCategoryArray);
@@ -110,6 +115,7 @@ namespace Proje.Controllers
         }
 
         // GET: Movies/Edit/5
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.movies == null)
@@ -132,6 +138,7 @@ namespace Proje.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Edit(int id, [Bind("movieId,movieTitle,movieYear,moviePoster,movieRating,movieStory,movieRunningTime,movieCategories")] Movie movie)
         {
             if (id != movie.movieId)
@@ -165,6 +172,7 @@ namespace Proje.Controllers
         }
 
         // GET: Movies/Delete/5
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.movies == null)
@@ -185,6 +193,7 @@ namespace Proje.Controllers
         // POST: Movies/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             if (_context.movies == null)

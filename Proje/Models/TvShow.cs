@@ -8,25 +8,42 @@ namespace Proje.Models
         [Key]
         public int showId { get; set; }
         [Display(Name = "Title")]
+        [Required(ErrorMessage = "Please enter a value.")]
         public string showTitle { get; set; }
+
+        [Required(ErrorMessage = "Please enter a value.")]
+        [Display(Name ="Poster URL")]
         public string showPoster { get; set; }
+
+        [Required(ErrorMessage = "Please enter a value.")]
         [Display(Name = "Start Year")]
-        [Range(1900, 2022, ErrorMessage = "Please enter a correct value.")]
+        [rangeYear(1900, ErrorMessage = "Please enter a correct value.")]
         public int showStartYear { get; set; }
+
+        [Required(ErrorMessage = "Please enter a value.")]
         [Display(Name = "End Year")]
-        [Range(1900, 2023, ErrorMessage = "Please enter a correct value.")]
+        [rangeYear(1900, ErrorMessage = "Please enter a correct value.")]
         public int showEndYear{ get; set; }
+
+        [Required(ErrorMessage = "Please enter a value.")]
         [Display(Name = "Number of episodes")]
         [Range(1, 2000, ErrorMessage = "Please enter a correct value.")]
         public int showEpisodes { get; set; }
 
+
+        [Required(ErrorMessage = "Please enter a value.")]
         [Display(Name = "Rating")]
         [Range(0, 10, ErrorMessage = "Please enter a correct value.")]
         public double showRating { get; set; }
+
+        [Required(ErrorMessage = "Please enter a value.")]
         [Display(Name = "Plot Summery")]
         public string showStory { get; set; }
+
+
         [Display(Name = "Categories")]
-        public string? showCategories { get; set; }
+ 
+        public string showCategories { get; set; }
         [NotMapped]
         public IEnumerable<Category>? categoryCollection { get; set; }
         [NotMapped]

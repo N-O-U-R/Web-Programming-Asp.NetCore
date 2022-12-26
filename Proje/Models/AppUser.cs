@@ -10,5 +10,7 @@ namespace Proje.Models
         [Required]
         [Display(Name="Full Name")]
         public string Name { get; set; }
+
+        public ICollection<AnimeUser>? animes { get; set; }
     }
 }

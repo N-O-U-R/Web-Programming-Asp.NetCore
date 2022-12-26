@@ -1,0 +1,44 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model Proje.Models.AnimeUser
+
+<h3>Add anime</h3>
+
+<div class="row-cols-2">
+	<form asp-action="addAnime">
+		<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+		<input type="hidden" asp-for="animeId" />
+		<input type="hidden" asp-for="userId" />
+
+		<label asp-for="watchStatus" class="control-label"></label>
+		<select asp-for="watchStatus" class="dropdown">
+			<option value="">Select score</option>
+			<option value="Completed">Completed</option>
+			<option value="Watching">Watching</option>
+			<option value="Plan to watch">Plan to watch</option>
+		</select>
+		<span asp-validation-for="watchStatus" class="text-danger"></span>
+
+		<label asp-for="userRating" class="control-label"></label>
+		<select asp-for="userRating" class="dropdown">
+			<option value="">Select score</option>
+			<option value=10>10</option>
+			<option value=9>9</option>
+			<option value=8>8</option>
+			<option value=7>7</option>
+			<option value=6>6</option>
+			<option value=5>5</option>
+			<option value=4>4</option>
+			<option value=3>3</option>
+			<option value=2>2</option>
+			<option value=1>1</option>
+		</select>
+		<span asp-validation-for="userRating" class="text-danger"></span>
+		<div class="form-group">
+			<input type="submit" value="Submit" class="btn btn-primary" />
+		</div>
+	</form>
+</div>

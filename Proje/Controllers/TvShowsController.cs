@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -19,6 +20,7 @@ namespace Proje.Controllers
         }
 
         // GET: TvShows
+        [AllowAnonymous]
         public async Task<IActionResult> Index(string sortBy, string search)
         {
             var tvShows = from a in _context.tvShows
@@ -52,6 +54,7 @@ namespace Proje.Controllers
         }
 
         // GET: TvShows/Details/5
+        [AllowAnonymous]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.tvShows == null)
@@ -84,6 +87,7 @@ namespace Proje.Controllers
         }
 
         // GET: TvShows/Create
+        [Authorize(Roles = "admin")]
         public IActionResult Create()
         {
             TvShow show = new TvShow();
@@ -96,6 +100,7 @@ namespace Proje.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Create([Bind("showId,showTitle,showPoster,showStartYear,showEndYear,showEpisodes,showRating,showStory,showCategories,showCategoryArray")] TvShow tvShow)
         {
             tvShow.showCategories = string.Join(",", tvShow.showCategoryArray);
@@ -109,6 +114,7 @@ namespace Proje.Controllers
         }
 
         // GET: TvShows/Edit/5
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.tvShows == null)
@@ -133,6 +139,7 @@ namespace Proje.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Edit(int id, [Bind("showId,showTitle,showPoster,showStartYear,showEndYear,showEpisodes,showRating,showStory,showCategories")] TvShow tvShow)
         {
             if (id != tvShow.showId)
@@ -166,6 +173,7 @@ namespace Proje.Controllers
         }
 
         // GET: TvShows/Delete/5
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.tvShows == null)
@@ -186,6 +194,7 @@ namespace Proje.Controllers
         // POST: TvShows/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             if (_context.tvShows == null)

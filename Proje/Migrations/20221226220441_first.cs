@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Proje.Migrations
 {
-    public partial class show : Migration
+    public partial class first : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -22,7 +22,7 @@ namespace Proje.Migrations
                     animeStartYear = table.Column<int>(type: "int", nullable: false),
                     animeEndYear = table.Column<int>(type: "int", nullable: false),
                     animeStory = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    animeCategories = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    animeCategories = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -48,6 +48,7 @@ namespace Proje.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -93,7 +94,7 @@ namespace Proje.Migrations
                     movieRating = table.Column<double>(type: "float", nullable: false),
                     movieStory = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     movieRunningTime = table.Column<int>(type: "int", nullable: false),
-                    movieCategories = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    movieCategories = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -113,7 +114,7 @@ namespace Proje.Migrations
                     showEpisodes = table.Column<int>(type: "int", nullable: false),
                     showRating = table.Column<double>(type: "float", nullable: false),
                     showStory = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    showCategories = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    showCategories = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -137,6 +138,32 @@ namespace Proje.Migrations
                         name: "FK_AspNetRoleClaims_AspNetRoles_RoleId",
                         column: x => x.RoleId,
                         principalTable: "AspNetRoles",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "anime_Users",
+                columns: table => new
+                {
+                    animeId = table.Column<int>(type: "int", nullable: false),
+                    userId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    watchStatus = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    userRating = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_anime_Users", x => new { x.userId, x.animeId });
+                    table.ForeignKey(
+                        name: "FK_anime_Users_animes_animeId",
+                        column: x => x.animeId,
+                        principalTable: "animes",
+                        principalColumn: "animeId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_anime_Users_AspNetUsers_userId",
+                        column: x => x.userId,
+                        principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -166,8 +193,8 @@ namespace Proje.Migrations
                 name: "AspNetUserLogins",
                 columns: table => new
                 {
-                    LoginProvider = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
-                    ProviderKey = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
+                    LoginProvider = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    ProviderKey = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     ProviderDisplayName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
@@ -211,8 +238,8 @@ namespace Proje.Migrations
                 columns: table => new
                 {
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    LoginProvider = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
+                    LoginProvider = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Value = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
@@ -225,6 +252,11 @@ namespace Proje.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_anime_Users_animeId",
+                table: "anime_Users",
+                column: "animeId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -269,7 +301,7 @@ namespace Proje.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "animes");
+                name: "anime_Users");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");
@@ -294,6 +326,9 @@ namespace Proje.Migrations
 
             migrationBuilder.DropTable(
                 name: "tvShows");
+
+            migrationBuilder.DropTable(
+                name: "animes");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

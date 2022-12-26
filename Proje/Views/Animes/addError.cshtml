@@ -1,0 +1,14 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<div class="alert alert-danger text-center">
+    <h1>The Anime Could not be added due to some error.</h1>
+    @if (TempData["modelerror"] != null)
+{
+    <div class="col-md-12 alert alert-success">
+        <span>@TempData["modelerror"] </span>
+    </div>
+}
+</div>

@@ -2,8 +2,12 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using System.Xml.Linq;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Proje.Models;
@@ -21,13 +25,14 @@ namespace Proje.Controllers
 
 
 
+        [AllowAnonymous]
         // GET: Animes
-        public async Task<IActionResult> Index(string sortBy,string search)
+        public async Task<IActionResult> Index(string sortBy, string search)
         {
             var animes = from a in _context.animes
                          select a;
 
-            if(!string.IsNullOrEmpty(search))
+            if (!string.IsNullOrEmpty(search))
             {
                 animes = animes.Where(x => x.animeTitle.Contains(search));
             }
@@ -51,11 +56,12 @@ namespace Proje.Controllers
 
             return View(await animes.ToListAsync());
         }
-        
+
         // GET: Animes/Details/5
+        [AllowAnonymous]
         public async Task<IActionResult> Details(int? id)
         {
-            
+
             if (id == null || _context.animes == null)
             {
                 return NotFound();
@@ -63,18 +69,18 @@ namespace Proje.Controllers
 
             var anime = await _context.animes
                 .FirstOrDefaultAsync(m => m.animeId == id);
-            
+
             anime.animeCategoryArray = anime.animeCategories.Split(",");
             string[] categoryArray = new string[anime.animeCategoryArray.Length];
             int i = 0;
             foreach (var item in anime.animeCategoryArray)
             {
-                categoryArray[i]= (from x in _context.categories
-                                  where x.categoryId == Int32.Parse(item)
-                                   select x.categoryName).FirstOrDefault();
+                categoryArray[i] = (from x in _context.categories
+                                    where x.categoryId == Int32.Parse(item)
+                                    select x.categoryName).FirstOrDefault();
                 i++;
             }
-            anime.animeCategories = String.Join(",",categoryArray);
+            anime.animeCategories = String.Join(",", categoryArray);
             if (anime == null)
             {
                 return NotFound();
@@ -84,10 +90,11 @@ namespace Proje.Controllers
         }
 
         // GET: Animes/Create
+        [Authorize(Roles = "admin")]
         public IActionResult Create()
         {
             Anime anime = new Anime();
-            
+
             anime.categoryCollection = _context.categories.ToList();
             return View(anime);
         }
@@ -97,11 +104,17 @@ namespace Proje.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Create([Bind("animeId,animeTitle,animePoster,animeRating,animeEpisodes,animeStartYear,animeEndYear,animeStory,animeCategories,animeCategoryArray")] Anime anime)
         {
+            if (anime.animeCategoryArray == null)
+            {
+                return View("Error");
+            }
+
             anime.animeCategories = string.Join(",", anime.animeCategoryArray);
 
-            
+
             if (ModelState.IsValid)
             {
                 _context.Add(anime);
@@ -112,6 +125,7 @@ namespace Proje.Controllers
         }
 
         // GET: Animes/Edit/5
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.animes == null)
@@ -134,13 +148,14 @@ namespace Proje.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Edit(int id, [Bind("animeId,animeTitle,animePoster,animeRating,animeEpisodes,animeStartYear,animeEndYear,animeStory,animeCategories,animeCategoryArray")] Anime anime)
         {
             if (id != anime.animeId)
             {
                 return NotFound();
             }
-            anime.animeCategories = string.Join(",",anime.animeCategoryArray);
+            anime.animeCategories = string.Join(",", anime.animeCategoryArray);
             if (ModelState.IsValid)
             {
                 try
@@ -165,6 +180,7 @@ namespace Proje.Controllers
         }
 
         // GET: Animes/Delete/5
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.animes == null)
@@ -181,7 +197,7 @@ namespace Proje.Controllers
 
             return View(anime);
         }
-
+        [Authorize(Roles = "admin")]
         // POST: Animes/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
@@ -196,14 +212,62 @@ namespace Proje.Controllers
             {
                 _context.animes.Remove(anime);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
+        [Authorize(Roles = "user,admin")]
+        public async Task<IActionResult> addAnime(int? animeId)
+        {
+            AnimeUser animeUser = new AnimeUser();
+            var anime = await _context.animes.FindAsync(animeId);
+
+            if (anime == null)
+            {
+                return NotFound();
+            }
+
+            animeUser.animeId = (int)animeId;
+            string userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            if (userId == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+            animeUser.userId =userId;
+            return View(animeUser);
+        }
+
+        [Authorize(Roles = "user,admin")]
+        [HttpPost]
+        public async Task<IActionResult> addAnime(int animeId,AnimeUser animeUser)
+        {
+            
+            if (animeId != animeUser.animeId)
+            {
+                return NotFound();
+            }
+
+            
+            if (ModelState.IsValid)
+            {
+                _context.Add(animeUser);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            string messages = string.Join("; ", ModelState.Values
+                                        .SelectMany(x => x.Errors)
+                                        .Select(x => x.ErrorMessage));
+            TempData["modelerror"] = messages;
+            return View("addError");
+        }
+
         private bool AnimeExists(int id)
         {
-          return _context.animes.Any(e => e.animeId == id);
+            return _context.animes.Any(e => e.animeId == id);
         }
+
+
     }
 }

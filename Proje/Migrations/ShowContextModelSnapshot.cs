@@ -164,6 +164,7 @@ namespace Proje.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("animeId"), 1L, 1);
 
                     b.Property<string>("animeCategories")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("animeEndYear")
@@ -193,6 +194,28 @@ namespace Proje.Migrations
                     b.HasKey("animeId");
 
                     b.ToTable("animes");
+                });
+
+            modelBuilder.Entity("Proje.Models.AnimeUser", b =>
+                {
+                    b.Property<string>("userId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("animeId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("userRating")
+                        .HasColumnType("int");
+
+                    b.Property<string>("watchStatus")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("userId", "animeId");
+
+                    b.HasIndex("animeId");
+
+                    b.ToTable("anime_Users");
                 });
 
             modelBuilder.Entity("Proje.Models.AppUser", b =>
@@ -290,6 +313,7 @@ namespace Proje.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("movieId"), 1L, 1);
 
                     b.Property<string>("movieCategories")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("moviePoster")
@@ -327,6 +351,7 @@ namespace Proje.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("showId"), 1L, 1);
 
                     b.Property<string>("showCategories")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("showEndYear")
@@ -407,6 +432,35 @@ namespace Proje.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Proje.Models.AnimeUser", b =>
+                {
+                    b.HasOne("Proje.Models.Anime", "anime")
+                        .WithMany("users")
+                        .HasForeignKey("animeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Proje.Models.AppUser", "user")
+                        .WithMany("animes")
+                        .HasForeignKey("userId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("anime");
+
+                    b.Navigation("user");
+                });
+
+            modelBuilder.Entity("Proje.Models.Anime", b =>
+                {
+                    b.Navigation("users");
+                });
+
+            modelBuilder.Entity("Proje.Models.AppUser", b =>
+                {
+                    b.Navigation("animes");
                 });
 #pragma warning restore 612, 618
         }

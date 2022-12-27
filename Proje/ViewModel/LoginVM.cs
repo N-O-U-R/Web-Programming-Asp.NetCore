@@ -7,7 +7,7 @@ namespace Proje.ViewModel
     {
         [Required(ErrorMessage ="Email Address is Invalid")]
         [Display(Name ="Email Address")]
-        public string Email { get; set; }
+        public string  Email { get; set; }
         [Required(ErrorMessage = "Password is Invalid")]
         [DataType(DataType.Password)]
         public string Password { get; set; }

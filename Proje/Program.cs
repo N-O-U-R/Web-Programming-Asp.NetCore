@@ -1,11 +1,14 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-
+using Microsoft.Extensions.Options;
 using Proje.Models;
 using Proje.ViewModel;
 using System.Configuration;
+using System.Globalization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -61,6 +64,27 @@ builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 //    options.LoginPath = "/Account/Login";
 //    options.AccessDeniedPath = "/Account/AccessDenied";
 //});
+//langauges
+builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
+builder.Services.AddMvc().AddViewLocalization(Microsoft.AspNetCore.Mvc.Razor.LanguageViewLocationExpanderFormat.Suffix)
+    .AddDataAnnotationsLocalization();
+
+builder.Services.Configure<RequestLocalizationOptions>(options =>
+{
+    var supportedCultures = new[]
+    {
+                    new CultureInfo("tr"),
+                    new CultureInfo("en-US"),
+                  
+
+                };
+    options.DefaultRequestCulture = new RequestCulture(culture: "en", uiCulture: "en");
+    options.SupportedCultures = supportedCultures;
+    options.SupportedUICultures = supportedCultures;
+});
+
+    
+
 
 var app = builder.Build();
 
@@ -79,10 +103,15 @@ app.UseDeveloperExceptionPage();
 
 app.UseRouting();
 
+var options = ((IApplicationBuilder)app).ApplicationServices.GetRequiredService<IOptions<RequestLocalizationOptions>>();
+
+app.UseRequestLocalization(options.Value);
+
 app.UseAuthentication();
 app.UseAuthorization();
-
-
+//
+app.UseRequestLocalization(app.Services.GetRequiredService<IOptions<RequestLocalizationOptions>>().Value);
+//
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");

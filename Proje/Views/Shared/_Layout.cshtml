@@ -1,4 +1,18 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Localization
+@using Microsoft.AspNetCore.Http.Features
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.Extensions.Options
+@inject IViewLocalizer localizer
+@inject IOptions<RequestLocalizationOptions> locOptions
+@{
+    var requestCulture = Context.Features.Get<IRequestCultureFeature>();
+    var cultureItems = locOptions.Value.SupportedUICultures 
+       .Select(c => new SelectListItem { Value = c.Name, Text = c.DisplayName })
+       .ToList();
+    var returnUrl = String.IsNullOrEmpty(Context.Request.Path) ? "~/" :$"~{Context.Request.Path.Value}";
+}
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -29,6 +43,14 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="TvShows" asp-action="Index">Series</a>
+                        </li>
+                        
+                        <li>
+                            <form  asp-controller = "Account" asp-action="SetLanguage" asp-route-returnUrl="@returnUrl" id ="selectLangauge" method ="POST"
+                             title = "@localizer["Request culture provider"] @requestCulture?.Provider?.GetType().Name ">
+                               <select name ="culture" onchange="this.form.submit();" asp-for="@requestCulture.RequestCulture.UICulture.Name" asp-items="cultureItems">
+                               </select>
+                            </form>
                         </li>
                     </ul>
                 </div>

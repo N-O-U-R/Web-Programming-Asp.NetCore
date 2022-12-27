@@ -24,4 +24,13 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.3.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Resources\Views\Account\" />
+    <Folder Include="Resources\Views\Animes\" />
+    <Folder Include="Resources\Views\Home\" />
+    <Folder Include="Resources\Views\Movies\" />
+    <Folder Include="Resources\Views\Shared\" />
+    <Folder Include="Resources\Views\TvShows\" />
+  </ItemGroup>
+
 </Project>

@@ -37,7 +37,7 @@ namespace Proje.Models
 
         [Display(Name = "Categories")]
 
-        public string movieCategories { get; set; }
+        public string? movieCategories { get; set; }
         [NotMapped]
         public IEnumerable<Category>? categoryCollection { get; set; }
         [NotMapped]

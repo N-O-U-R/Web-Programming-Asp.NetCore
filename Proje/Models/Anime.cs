@@ -44,7 +44,7 @@ namespace Proje.Models
 
 
         [Display(Name = "Categories")]
-        public string animeCategories { get; set; }
+        public string? animeCategories { get; set; }
 
 
         [NotMapped]

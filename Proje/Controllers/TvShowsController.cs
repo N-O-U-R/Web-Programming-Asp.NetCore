@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -77,6 +78,10 @@ namespace Proje.Controllers
             }
             tvShow.showCategories = String.Join(",", categoryArray);
 
+            if (tvShow.showEndYear == null)
+            {
+                ViewData["endYear"] = "Current";
+            }
 
             if (tvShow == null)
             {
@@ -183,6 +188,12 @@ namespace Proje.Controllers
 
             var tvShow = await _context.tvShows
                 .FirstOrDefaultAsync(m => m.showId == id);
+
+            if (tvShow.showEndYear == null)
+            {
+                ViewData["endYear"] = "Current";
+            }
+
             if (tvShow == null)
             {
                 return NotFound();

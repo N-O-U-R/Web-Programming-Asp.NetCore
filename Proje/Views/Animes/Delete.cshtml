@@ -1,69 +1,76 @@
 ﻿@model Proje.Models.Anime
 
 @{
-    ViewData["Title"] = "Delete";
+	ViewData["Title"] = "Delete";
 }
 
 <h1>Delete</h1>
 
 <h3>Are you sure you want to delete this?</h3>
 <div>
-    <h4>Anime</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.animeTitle)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.animeTitle)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.animePoster)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.animePoster)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.animeRating)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.animeRating)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.animeEpisodes)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.animeEpisodes)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.animeStartYear)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.animeStartYear)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.animeEndYear)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.animeEndYear)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.animeStory)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.animeStory)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.animeCategories)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.animeCategories)
-        </dd>
-    </dl>
-    
-    <form asp-action="Delete">
-        <input type="hidden" asp-for="animeId" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="Index">Back to List</a>
-    </form>
+	<h4>Anime</h4>
+	<hr />
+	<dl class="row mb-2">
+		<dt class="col-sm-2">
+			@Html.DisplayNameFor(model => model.animeTitle)
+		</dt>
+		<dd class="col-sm-10">
+			@Html.DisplayFor(model => model.animeTitle)
+		</dd>
+		<dt class="col-sm-2">
+			@Html.DisplayNameFor(model => model.animePoster)
+		</dt>
+		<dd class="col-sm-10">
+			@Html.DisplayFor(model => model.animePoster)
+		</dd>
+		<dt class="col-sm-2">
+			@Html.DisplayNameFor(model => model.animeRating)
+		</dt>
+		<dd class="col-sm-10">
+			@Html.DisplayFor(model => model.animeRating)
+		</dd>
+		<dt class="col-sm-2">
+			@Html.DisplayNameFor(model => model.animeEpisodes)
+		</dt>
+		<dd class="col-sm-10">
+			@Html.DisplayFor(model => model.animeEpisodes)
+		</dd>
+		<dt class="col-sm-2">
+			@Html.DisplayNameFor(model => model.animeStartYear)
+		</dt>
+		<dd class="col-sm-10">
+			@Html.DisplayFor(model => model.animeStartYear)
+		</dd>
+		<dt class="col-sm-2">
+			End Year
+		</dt>
+		<dd class="col-sm-10">
+			@if (ViewData["endYear"] != null)
+			{
+				<span>@ViewData["endYear"]</span>
+			}
+			else
+			{
+				@Html.DisplayFor(model => model.animeEndYear)
+			}
+		</dd>
+		<dt class="col-sm-2">
+			@Html.DisplayNameFor(model => model.animeStory)
+		</dt>
+		<dd class="col-sm-10">
+			@Html.DisplayFor(model => model.animeStory)
+		</dd>
+		<dt class="col-sm-2">
+			@Html.DisplayNameFor(model => model.animeCategories)
+		</dt>
+		<dd class="col-sm-10">
+			@Html.DisplayFor(model => model.animeCategories)
+		</dd>
+	</dl>
+
+	<form asp-action="Delete">
+		<input type="hidden" asp-for="animeId" />
+		<input type="submit" value="Delete" class="btn btn-danger" /> |
+		<a asp-action="Index">Back to List</a>
+	</form>
 </div>

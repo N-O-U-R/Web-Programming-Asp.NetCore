@@ -57,11 +57,31 @@
 		.img-card:hover {
 			-webkit-transform: scale(1.03);
 			transform: scale(1.03);
-			box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.08);
+			box-shadow: 0px 10px 25px rgba(100, 100, 100, 0.6);
 		}
 
 	.fa-star {
 		color: #D5AB55;
+	}
+
+	.delete
+	{
+		color:red;
+	}
+	.delete:hover
+	{
+		color:darkred;
+	}
+	.title
+	{
+		text-decoration:none;
+		color:black;
+	}
+	.title:hover
+	{
+
+		color:darkslategray
+
 	}
 </style>
 
@@ -70,7 +90,7 @@
 	<form method="get" asp-action="Index" id="Form" class="form-inline Form1">
 		<div class="row">
 			<div class="col input-group">
-				<label class="col-sm-2 col-form-label">Sort By:  </label>
+				<label class="col-sm-2 col-form-label">Sort By:</label>
 				<div class="input-group-append">
 					<select id="sortBy" name="sortBy" class="form-select">
 						<option selected value="">Please select an option</option>
@@ -127,10 +147,10 @@
 		{
 			<tr class="list-box">
 				<td width="30%">
-					<img src="@item.animePoster" class="img-card" asp-append-version="true">
+					<a asp-action="Details" asp-route-id="@item.animeId"><img src="@item.animePoster" class="img-card" asp-append-version="true"></a>
 				</td>
-				<td class="pl">
-					@Html.DisplayFor(modelItem => item.animeTitle)
+				<td class="pl ">
+					<a asp-action="Details" asp-route-id="@item.animeId" class="title">@Html.DisplayFor(modelItem => item.animeTitle)</a>
 				</td>
 				<td class="text-left">
 					<i class="fa-solid fa-star"></i>
@@ -144,7 +164,7 @@
 						{
 							<a asp-action="Edit" asp-route-id="@item.animeId">Edit</a>
 							<a asp-action="Details" asp-route-id="@item.animeId">Details</a>
-							<a asp-action="Delete" asp-route-id="@item.animeId">Delete</a>
+							<a asp-action="Delete" asp-route-id="@item.animeId" class="delete">Delete</a>
 						}
 					}
 				</td>

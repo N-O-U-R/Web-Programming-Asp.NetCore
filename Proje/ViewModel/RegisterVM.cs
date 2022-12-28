@@ -14,6 +14,7 @@ namespace Proje.ViewModel
         [Required(ErrorMessage = "Password is Invalid")]
         [DataType(DataType.Password)]
         public string Password { get; set; }
+        [Display(Name="Confirm Password")]
         [Required(ErrorMessage = "Confirm Password is required")]
         [DataType(DataType.Password)]
         public string confirmPassword { get; set; }

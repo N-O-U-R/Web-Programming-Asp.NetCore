@@ -64,25 +64,22 @@
 		color: #D5AB55;
 	}
 
-	.delete
-	{
-		color:red;
+	.delete {
+		color: red;
 	}
-	.delete:hover
-	{
-		color:darkred;
-	}
-	.title
-	{
-		text-decoration:none;
-		color:black;
-	}
-	.title:hover
-	{
 
-		color:darkslategray
+		.delete:hover {
+			color: darkred;
+		}
 
+	.title {
+		text-decoration: none;
+		color: black;
 	}
+
+		.title:hover {
+			color: darkslategray
+		}
 </style>
 
 
@@ -92,7 +89,7 @@
 			<div class="col input-group">
 				<label class="col-sm-2 col-form-label">Sort By:</label>
 				<div class="input-group-append">
-					<select id="sortBy" name="sortBy" class="form-select">
+					<select id="sortBy" name="sortBy" class="form-select" width=100%>
 						<option selected value="">Please select an option</option>
 						<option value="title">Title</option>
 						<option value="year">Most recent</option>
@@ -100,7 +97,8 @@
 						<option value="episodes">Number of episodes</option>
 					</select>
 				</div>
-
+			</div>
+			<div class="col text-center">
 				@if (User.Identity.IsAuthenticated)
 				{
 					if (User.IsInRole("admin"))
@@ -108,11 +106,7 @@
 						<a asp-controller="Animes" asp-action="Create" class="btn btn-primary ms-1">New Anime</a>
 					}
 				}
-
 			</div>
-			
-			
-			<div class="col"></div>
 			<div class="col input-group ">
 				<input type="text" class="form-control" name="search" autocomplete="off">
 				<div class="input-group-append">

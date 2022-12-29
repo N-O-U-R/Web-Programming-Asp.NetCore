@@ -78,15 +78,17 @@
 						<option value="episodes">Number of Episdoes</option>
 					</select>
 				</div>
+				
+			</div>
+			<div class="col text-center">
 				@if (User.Identity.IsAuthenticated)
 				{
 					if (User.IsInRole("admin"))
 					{
-						<a asp-controller="TvShows" asp-action="Create" class="btn btn-primary ms-1">New Show</a>
+						<a asp-controller="TvShows" asp-action="Create" class="btn btn-primary ms-1">New Series</a>
 					}
 				}
 			</div>
-			<div class="col"></div>
 			<div class="col input-group ">
 				<input type="text" class="form-control" name="search" autocomplete="off">
 				<div class="input-group-append">

@@ -5,40 +5,64 @@
 }
 @model Proje.Models.AnimeUser
 
-<h3>Add anime</h3>
 
-<div class="row-cols-2">
-	<form asp-action="addAnime">
-		<div asp-validation-summary="ModelOnly" class="text-danger"></div>
-		<input type="hidden" asp-for="animeId" />
-		<input type="hidden" asp-for="userId" />
+<style>
+	.box {
+		background-color: #f2f3f4;
+		position: absolute;
+		left: 38%;
+		top: 25%;
+		-webkit-box-shadow: 0 0 40px 0 rgba(20, 20, 20, 0.4);
+		box-shadow: 0 0 40px 0 rgba(20, 20, 20, 0.4);
+		border-radius: 10px;
+		padding: 20px 35px;
+	}
 
-		<label asp-for="watchStatus" class="control-label"></label>
-		<select asp-for="watchStatus" class="dropdown">
-			<option value="">Select score</option>
-			<option value="Completed">Completed</option>
-			<option value="Watching">Watching</option>
-			<option value="Plan to watch">Plan to watch</option>
-		</select>
-		<span asp-validation-for="watchStatus" class="text-danger"></span>
+	input {
+		-webkit-box-shadow: 0 0 40px 0 rgba(255, 255,255,1);
+		box-shadow: 0 0 40px 0 rgba(255, 255, 255,1);
+		border-radius: 10px;
+	}
+</style>
 
-		<label asp-for="userRating" class="control-label"></label>
-		<select asp-for="userRating" class="dropdown">
-			<option value="">Select score</option>
-			<option value=10>10</option>
-			<option value=9>9</option>
-			<option value=8>8</option>
-			<option value=7>7</option>
-			<option value=6>6</option>
-			<option value=5>5</option>
-			<option value=4>4</option>
-			<option value=3>3</option>
-			<option value=2>2</option>
-			<option value=1>1</option>
-		</select>
-		<span asp-validation-for="userRating" class="text-danger"></span>
-		<div class="form-group">
-			<input type="submit" value="Submit" class="btn btn-primary" />
-		</div>
-	</form>
+<div class="container ">
+	<div class="col-md-3 col-md-offset-3 box">
+		<div class="text-center mb-5"><h2>Add anime to list</h2></div>
+		<form asp-action="addAnime">
+			<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+			<input type="hidden" asp-for="animeId" />
+			<input type="hidden" asp-for="userId" />
+			<div class="mb-4">
+				<label asp-for="watchStatus" class="control-label"></label>
+				<select asp-for="watchStatus" class="form-select" required>
+					<option value="">Select score</option>
+					<option value="Completed">Completed</option>
+					<option value="Watching">Watching</option>
+					<option value="Plan to watch">Plan to watch</option>
+				</select>
+				<span asp-validation-for="watchStatus" class="text-danger"></span>
+			</div>
+			<div class="mb-4">
+				<label asp-for="userRating" class="control-label"></label>
+				<select asp-for="userRating" class="form-select" required>
+					<option value="">Select score</option>
+					<option value=10>10</option>
+					<option value=9>9</option>
+					<option value=8>8</option>
+					<option value=7>7</option>
+					<option value=6>6</option>
+					<option value=5>5</option>
+					<option value=4>4</option>
+					<option value=3>3</option>
+					<option value=2>2</option>
+					<option value=1>1</option>
+				</select>
+				<span asp-validation-for="userRating" class="text-danger"></span>
+			</div>
+
+			<div class="form-group">
+				<input type="submit" value="Submit" class="btn btn-primary float-lg-end" />
+			</div>
+		</form>
+	</div>
 </div>

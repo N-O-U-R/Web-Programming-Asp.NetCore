@@ -20,10 +20,10 @@ namespace Proje.Models
         [rangeYear(1900, ErrorMessage = "Please enter a correct value.")]
         public int showStartYear { get; set; }
 
-        [Required(ErrorMessage = "Please enter a value.")]
-        [Display(Name = "End Year")]
+        
+        [Display(Name = "End Year (if it's still airing leave empty)")]
         [rangeYear(1900, ErrorMessage = "Please enter a correct value.")]
-        public int showEndYear{ get; set; }
+        public int? showEndYear{ get; set; }
 
         [Required(ErrorMessage = "Please enter a value.")]
         [Display(Name = "Number of episodes")]

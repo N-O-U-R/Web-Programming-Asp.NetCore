@@ -68,7 +68,7 @@
 	<form method="get" asp-action="Index" id="Form" class="form-inline Form1">
 		<div class="row">
 			<div class="col input-group">
-				<label class="col-sm-2 col-form-label">Sort By:  </label>
+				<label class="col-sm-2 col-form-label">Sort By:</label>
 				<div class="input-group-append">
 					<select id="sortBy" name="sortBy" class="form-select">
 						<option selected value="">Please select an option</option>
@@ -78,6 +78,10 @@
 						<option value="runningTime">Running time</option>
 					</select>
 				</div>
+				
+				
+			</div>
+			<div class="col text-center">
 				@if (User.Identity.IsAuthenticated)
 				{
 					if (User.IsInRole("admin"))
@@ -86,7 +90,6 @@
 					}
 				}
 			</div>
-			<div class="col"></div>
 			<div class="col input-group ">
 				<input type="text" class="form-control" name="search" autocomplete="off">
 				<div class="input-group-append">

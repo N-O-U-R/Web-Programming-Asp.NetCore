@@ -6,7 +6,6 @@
 
 <h1>Edit</h1>
 
-<h4>Anime</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -48,7 +47,7 @@
                 <input asp-for="animeStory" class="form-control" />
                 <span asp-validation-for="animeStory" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group mb-2">
                 <label asp-for="animeCategories" class="control-label"></label>
                 @Html.ListBoxFor(x => x.animeCategoryArray, new MultiSelectList(Model.categoryCollection,"categoryId","categoryName"),new {id= "multiSelectDropdown",multiple="multiple"})
                 <span asp-validation-for="animeCategories" class="text-danger"></span>

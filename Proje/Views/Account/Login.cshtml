@@ -9,8 +9,28 @@
     </div>
 }
 
-<div class="container">
-    <div class="col-md-8 offset-2">
+<style>
+    .box {
+        background-color: #f2f3f4;
+        position: absolute;
+        left: 38%;
+        top: 25%;
+        -webkit-box-shadow: 0 0 40px 0 rgba(20, 20, 20, 0.4);
+        box-shadow: 0 0 40px 0 rgba(20, 20, 20, 0.4);
+        border-radius: 10px;
+        padding: 20px 35px;
+    }
+    input{
+        -webkit-box-shadow: 0 0 40px 0 rgba(255, 255,255,1);
+        box-shadow: 0 0 40px 0 rgba(255, 255, 255,1);
+        border-radius: 10px;
+    }
+</style>
+
+<div class="container ">
+    <div class="col-md-3 col-md-offset-3 box">
+        <div class="text-center mb-5"><h2>Sign in</h2></div>
+        
         <form asp-action="Login">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="mb-4">
@@ -24,8 +44,8 @@
                 <span asp-validation-for="Password" class="text-danger"></span>
             </div>
             <div class="mb-4">
-                <input class="btn btn-outline-success float-lg-end" type="submit" value="Login" />
-
+                <label>Not a user? </label><a asp-action="Register" class="m-lg-2">Register</a>
+                <input class="btn btn-primary float-lg-end" type="submit" value="Login" />
             </div>
         </form>
     </div>

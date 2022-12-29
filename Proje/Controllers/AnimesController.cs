@@ -80,6 +80,11 @@ namespace Proje.Controllers
                                     select x.categoryName).FirstOrDefault();
                 i++;
             }
+
+            if(anime.animeEndYear == null)
+            {
+                ViewData["endYear"] = "Current";
+            }
             anime.animeCategories = String.Join(",", categoryArray);
             if (anime == null)
             {
@@ -190,6 +195,24 @@ namespace Proje.Controllers
 
             var anime = await _context.animes
                 .FirstOrDefaultAsync(m => m.animeId == id);
+
+            anime.animeCategoryArray = anime.animeCategories.Split(",");
+            string[] categoryArray = new string[anime.animeCategoryArray.Length];
+            int i = 0;
+            foreach (var item in anime.animeCategoryArray)
+            {
+                categoryArray[i] = (from x in _context.categories
+                                    where x.categoryId == Int32.Parse(item)
+                                    select x.categoryName).FirstOrDefault();
+                i++;
+            }
+            anime.animeCategories = String.Join(",", categoryArray);
+
+            if (anime.animeEndYear == null)
+            {
+                ViewData["endYear"] = "Current";
+            }
+
             if (anime == null)
             {
                 return NotFound();
@@ -241,6 +264,7 @@ namespace Proje.Controllers
 
         [Authorize(Roles = "user,admin")]
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> addAnime(int animeId,AnimeUser animeUser)
         {
             

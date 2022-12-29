@@ -17,18 +17,38 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Auth Project</title>
+    <title>MyWatchList</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
 	<link rel="stylesheet" href="~/Proje.styles.css" asp-append-version="true" />
+	<link rel="icon" type="image/x-icon" href="~/favicon.ico">
 	<link href="~/css/chosen/chosen.min.css" rel="stylesheet" />
+	<link href="c:\users\mohamed nour\source\repos\web-programming-asp.netcore\proje\wwwroot\css\nice-select.css" rel="stylesheet" />
+	<script src="c:\users\mohamed nour\source\repos\web-programming-asp.netcore\proje\wwwroot\js\jquery.js"></script>
+	<script src="c:\users\mohamed nour\source\repos\web-programming-asp.netcore\proje\wwwroot\js\jquery.nice-select.js"></script>
+	<script src="c:\users\mohamed nour\source\repos\web-programming-asp.netcore\proje\wwwroot\js\jquery.nice-select.min.js"></script>
     <script src="https://kit.fontawesome.com/07b62ac2c8.js" crossorigin="anonymous"></script>
+    <style>
+        .img-fluid
+        {
+            max-width:35px;
+        }
+        li:hover{
+            border-right:2px solid;
+            border-left:2px solid;
+            border-color:dimgray;
+        }
+        .padding 
+        {
+            padding-top:8px;
+        }
+    </style>
 </head>
 <body>
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">MyWatchList</a>
+                <a class="navbar-brand me-sm-3 padding" asp-area="" asp-controller="Home" asp-action="Index"><img class="img-fluid" src="~/favicon.ico" /><b>MyWatchList</b></a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -68,7 +88,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2022 - Proje - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; 2022 - MyWatchList - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

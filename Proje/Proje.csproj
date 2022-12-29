@@ -25,6 +25,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Resources\Views\Account\" />
+    <Folder Include="Resources\Views\Animes\" />
     <Folder Include="Resources\Views\Home\" />
     <Folder Include="Resources\Views\Movies\" />
     <Folder Include="Resources\Views\Shared\" />

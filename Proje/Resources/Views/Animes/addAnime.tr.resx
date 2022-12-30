@@ -117,8 +117,11 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Add anime" xml:space="preserve">
-    <value>Anime ekle</value>
+  <data name="Add anime to list" xml:space="preserve">
+    <value>Anime'yi listeye ekle</value>
+  </data>
+  <data name="AddAnime" xml:space="preserve">
+    <value>AnimeEkle</value>
   </data>
   <data name="Completed" xml:space="preserve">
     <value>Tamamlandı</value>
@@ -129,7 +132,16 @@
   <data name="Select score" xml:space="preserve">
     <value>Puan seç</value>
   </data>
+  <data name="Submit" xml:space="preserve">
+    <value>Gönder</value>
+  </data>
+  <data name="userRating" xml:space="preserve">
+    <value>kullancıPuanlama</value>
+  </data>
   <data name="Watching" xml:space="preserve">
     <value>İzleniyor</value>
+  </data>
+  <data name="watchStatus" xml:space="preserve">
+    <value>İzlemeDurumu</value>
   </data>
 </root>

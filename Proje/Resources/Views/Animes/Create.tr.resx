@@ -120,34 +120,37 @@
   <data name="Anime" xml:space="preserve">
     <value>Anime</value>
   </data>
-  <data name="animeCategories" xml:space="preserve">
-    <value>animeKategorileri</value>
-  </data>
-  <data name="animeEndYear" xml:space="preserve">
-    <value>animeBitişYılı </value>
-  </data>
-  <data name="animeEpisodes" xml:space="preserve">
-    <value>animeBölümleri</value>
-  </data>
-  <data name="animePoster" xml:space="preserve">
-    <value>animePosteri</value>
-  </data>
-  <data name="animeRating" xml:space="preserve">
-    <value>animePuanlama</value>
-  </data>
-  <data name="animeStartYear" xml:space="preserve">
-    <value>animeBaşlagıçYılı</value>
-  </data>
-  <data name="animeStory" xml:space="preserve">
-    <value>animeHikayesi</value>
-  </data>
-  <data name="animeTitle" xml:space="preserve">
-    <value>animeAdı</value>
-  </data>
   <data name="Back to List" xml:space="preserve">
     <value>Listeye geri dön</value>
   </data>
+  <data name="Categories" xml:space="preserve">
+    <value>Kategoriler</value>
+  </data>
   <data name="Create" xml:space="preserve">
     <value>Oluştur</value>
+  </data>
+  <data name="Create an Anime" xml:space="preserve">
+    <value>Anime Oluştur</value>
+  </data>
+  <data name="End Year (if it's still airing leave empty)" xml:space="preserve">
+    <value>Bitiş Yılı (hala yayınlanıyorsa boş bırakın)</value>
+  </data>
+  <data name="Episodes" xml:space="preserve">
+    <value>Bölümler</value>
+  </data>
+  <data name="Plot Summery" xml:space="preserve">
+    <value>Anime Özeti</value>
+  </data>
+  <data name="Poster" xml:space="preserve">
+    <value>Poster</value>
+  </data>
+  <data name="Rating" xml:space="preserve">
+    <value>Puanlama</value>
+  </data>
+  <data name="Start Year" xml:space="preserve">
+    <value>Başlagıç Yılı</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>Başlık</value>
   </data>
 </root>

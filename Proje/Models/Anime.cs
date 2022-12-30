@@ -3,19 +3,21 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.AspNetCore.Mvc.Localization;
+//using Microsoft.VisualStudio.TestPlatform.CommunicationUtilities.Resources;
 
 namespace Proje.Models
 {
 
-    public class Anime
+    public class Anime  
     {
         
         [Key]
         public int animeId { get; set; }
-        [Display(Name = "Title")]
+        [Display(Name = "Title" )]
         [Required(ErrorMessage = "Please enter a value.")]
         public string animeTitle { get; set; }
-        [Display(Name ="Poster URL")]
+        [Display(Name = "Poster URL")]
         [Required(ErrorMessage = "Please enter a value.")]
         public string animePoster { get; set; }
         [Required(ErrorMessage = "Please enter a value.")]

@@ -1,10 +1,12 @@
 ﻿@model Proje.Models.TvShow
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer localizer
 
 @{
     ViewData["Title"] = "Edit";
 }
 
-<h1>Edit</h1>
+<h1>@localizer["Edit"]</h1>
 
 <hr />
 <div class="row">
@@ -13,54 +15,54 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="showId" />
             <div class="form-group">
-                <label asp-for="showTitle" class="control-label"></label>
+                <label asp-for="showTitle" class="control-label">@localizer["Title"]</label>
                 <input asp-for="showTitle" class="form-control" />
                 <span asp-validation-for="showTitle" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="showPoster" class="control-label"></label>
+                <label asp-for="showPoster" class="control-label">@localizer["Poster URL"]</label>
                 <input asp-for="showPoster" class="form-control" />
                 <span asp-validation-for="showPoster" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="showStartYear" class="control-label"></label>
+                <label asp-for="showStartYear" class="control-label">@localizer["Start Year"]</label>
                 <input asp-for="showStartYear" class="form-control" />
                 <span asp-validation-for="showStartYear" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="showEndYear" class="control-label"></label>
+                <label asp-for="showEndYear" class="control-label">@localizer["End Year"]</label>
                 <input asp-for="showEndYear" class="form-control" />
                 <span asp-validation-for="showEndYear" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="showEpisodes" class="control-label"></label>
+                <label asp-for="showEpisodes" class="control-label">@localizer["Number of episodes"]</label>
                 <input asp-for="showEpisodes" class="form-control" />
                 <span asp-validation-for="showEpisodes" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="showRating" class="control-label"></label>
+                <label asp-for="showRating" class="control-label">@localizer["Rating"]</label>
                 <input asp-for="showRating" class="form-control" />
                 <span asp-validation-for="showRating" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="showStory" class="control-label"></label>
+                <label asp-for="showStory" class="control-label">@localizer["Plot Summery"]</label>
                 <input asp-for="showStory" class="form-control" />
                 <span asp-validation-for="showStory" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="showCategories" class="control-label"></label>
+                <label asp-for="showCategories" class="control-label">@localizer["Categories"]</label>
                 @Html.ListBoxFor(x => x.showCategoryArray, new MultiSelectList(Model.categoryCollection,"categoryId","categoryName"),new {id= "multiSelectDropdown",multiple="multiple"})
                 <span asp-validation-for="showCategories" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="@localizer["Save"]" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">@localizer["Back to List"]</a>
 </div>
 
 @section Scripts {

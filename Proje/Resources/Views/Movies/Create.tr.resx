@@ -117,10 +117,37 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="modelerror" xml:space="preserve">
-    <value>model Hatası</value>
+  <data name="Back to List" xml:space="preserve">
+    <value>Listeye geri dön</value>
   </data>
-  <data name="The Anime Could not be added due to some error." xml:space="preserve">
-    <value>Anime bazı hatalar nedeniyle eklenemedi.</value>
+  <data name="Categories" xml:space="preserve">
+    <value>Kategoriler</value>
+  </data>
+  <data name="Create" xml:space="preserve">
+    <value>Oluştur</value>
+  </data>
+  <data name="Create a movie" xml:space="preserve">
+    <value> Film Oluştur</value>
+  </data>
+  <data name="Movie" xml:space="preserve">
+    <value>Film</value>
+  </data>
+  <data name="Plot Summery" xml:space="preserve">
+    <value>Film Özeti</value>
+  </data>
+  <data name="Poster URL" xml:space="preserve">
+    <value>Poster URL</value>
+  </data>
+  <data name="Rating" xml:space="preserve">
+    <value>Puanlama</value>
+  </data>
+  <data name="Release Year" xml:space="preserve">
+    <value>Yayın Tarihi</value>
+  </data>
+  <data name="Running Time" xml:space="preserve">
+    <value>Film Süresi</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>Başlık</value>
   </data>
 </root>

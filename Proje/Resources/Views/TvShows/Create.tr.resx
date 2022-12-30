@@ -117,31 +117,40 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Cancel" xml:space="preserve">
-    <value>Cancel</value>
+  <data name="Back to List" xml:space="preserve">
+    <value>Listeye geri dön</value>
   </data>
-  <data name="confirmPassword" xml:space="preserve">
-    <value>confirmPassword</value>
+  <data name="Categories" xml:space="preserve">
+    <value>Kategoriler</value>
   </data>
-  <data name="Email" xml:space="preserve">
-    <value>Email</value>
+  <data name="Create" xml:space="preserve">
+    <value>Oluştur</value>
   </data>
-  <data name="Error" xml:space="preserve">
-    <value>Error</value>
+  <data name="Create a tv series" xml:space="preserve">
+    <value>Yeni bir dizi oluştur</value>
   </data>
-  <data name="Name" xml:space="preserve">
-    <value>Name</value>
+  <data name="End Year" xml:space="preserve">
+    <value>Bitiş Yılı </value>
   </data>
-  <data name="Password" xml:space="preserve">
-    <value>Password</value>
+  <data name="Number of episodes" xml:space="preserve">
+    <value>Bölümlerin Sayısı</value>
   </data>
-  <data name="Sign up" xml:space="preserve">
-    <value>Sign up</value>
+  <data name="Plot Summery" xml:space="preserve">
+    <value>Dizi Özeti</value>
   </data>
-  <data name="Sign up a new account" xml:space="preserve">
-    <value>Sign up a new account</value>
+  <data name="Poster URL" xml:space="preserve">
+    <value>Poster URL</value>
   </data>
-  <data name="Sorry" xml:space="preserve">
-    <value>Sorry</value>
+  <data name="Rating" xml:space="preserve">
+    <value>Puanlama</value>
+  </data>
+  <data name="Start Year" xml:space="preserve">
+    <value>Başlagıç Yılı</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>Başlık</value>
+  </data>
+  <data name="TvShow" xml:space="preserve">
+    <value>Dizi</value>
   </data>
 </root>

@@ -1,6 +1,7 @@
 ﻿@using Proje.ViewModel;
 @model RegisterVM;
-
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer localizer
 @{
     ViewData["Title"] = "Sign up for a new account";
 }
@@ -27,12 +28,12 @@
 
 <div class="container ">
     <div class="col-md-3 col-md-offset-3 box">
-        <div class="text-center mb-5"><h2>Sign Up</h2></div>
+        <div class="text-center mb-5"><h2>@localizer["Sign Up"]</h2></div>
 
         @if (TempData["Error"] != null)
         {
             <div class="col-md-12 alert alert-danger text-center">
-                <span><b>Sorry!</b> - @TempData["Error"] </span>
+                <span><b>@localizer["Sorry"]!</b> - @TempData["Error"] </span>
             </div>
         }
         <form asp-action="Register">
@@ -49,7 +50,7 @@
                 <span asp-validation-for="Email" class="text-danger"></span>
             </div>
             <div class="mb-4">
-                <label asp-for="Password" class="control-label"></label>
+                <label asp-for="Password" class="control-label">@localizer["Password"] </label>
                 <input asp-for="Password" class="form-control" />
                 <span asp-validation-for="Password" class="text-danger"></span>
             </div>
@@ -60,7 +61,7 @@
             </div>
 
             <div class="mb-4">
-                <input class="btn btn-success float-lg-end" type="submit" value="Sign up" />
+                <input class="btn btn-success float-lg-end" type="submit" value="@localizer["Sign up"]" />
             </div>
         </form>
     </div>

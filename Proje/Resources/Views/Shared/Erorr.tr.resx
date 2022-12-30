@@ -117,10 +117,31 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="modelerror" xml:space="preserve">
-    <value>model Hatası</value>
+  <data name="An error occurred while processing your request." xml:space="preserve">
+    <value>İşleminiz gerçekleştirilirken bir hata oluştu.</value>
   </data>
-  <data name="The Anime Could not be added due to some error." xml:space="preserve">
-    <value>Anime bazı hatalar nedeniyle eklenemedi.</value>
+  <data name="Development" xml:space="preserve">
+    <value>Geliştirme</value>
+  </data>
+  <data name="Development Mode" xml:space="preserve">
+    <value>Geliştirme Modu</value>
+  </data>
+  <data name="environment by setting the" xml:space="preserve">
+    <value>ortamı ayarlayarak</value>
+  </data>
+  <data name="environment will display more detailed information about the error that occurred." xml:space="preserve">
+    <value>ortam, oluşan hata hakkında daha ayrıntılı bilgi görüntüler.</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Hata</value>
+  </data>
+  <data name="It can result in displaying sensitive information from exceptions to end users." xml:space="preserve">
+    <value>İstisnalardan son kullanıcılara hassas bilgilerin görüntülenmesine neden olabilir.</value>
+  </data>
+  <data name="Request ID:" xml:space="preserve">
+    <value>ID İste</value>
+  </data>
+  <data name="The Development environment shouldn't be enabled for deployed applications." xml:space="preserve">
+    <value>Geliştirme ortamı, dağıtılan uygulamalar için etkinleştirilmemelidir.</value>
   </data>
 </root>

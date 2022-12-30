@@ -117,10 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="modelerror" xml:space="preserve">
-    <value>model Hatası</value>
+  <data name="Check the categories" xml:space="preserve">
+    <value>Kategorileri kontrol edin</value>
   </data>
-  <data name="The Anime Could not be added due to some error." xml:space="preserve">
-    <value>Anime bazı hatalar nedeniyle eklenemedi.</value>
+  <data name="You have entered wrong values" xml:space="preserve">
+    <value>Yanlış değerleri girdiniz</value>
   </data>
 </root>

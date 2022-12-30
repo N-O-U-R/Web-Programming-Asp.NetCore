@@ -136,12 +136,12 @@
     <value>Şifre</value>
   </data>
   <data name="Sign up" xml:space="preserve">
-    <value>Üye ol</value>
+    <value>Kayıt ol</value>
   </data>
   <data name="Sign up a new account" xml:space="preserve">
     <value>Yeni hesapla üye ol </value>
   </data>
   <data name="Sorry" xml:space="preserve">
-    <value>Pardon</value>
+    <value>Üzür dileriz</value>
   </data>
 </root>

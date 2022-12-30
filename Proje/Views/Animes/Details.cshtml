@@ -1,47 +1,48 @@
 ﻿@model Proje.Models.Anime
-
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer localizer
 @{
 	ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
+<h1>@localizer["Details"]</h1>
 
 <div>
 	<h4>Anime</h4>
 	<hr />
 	<dl class="row mb-2">
 		<dt class="col-sm-2">
-			@Html.DisplayNameFor(model => model.animeTitle)
+			<label asp-for="animeTitle" class="control-label">@localizer["Title"]</label>
 		</dt>
 		<dd class="col-sm-10">
 			@Html.DisplayFor(model => model.animeTitle)
 		</dd>
 		<dt class="col-sm-2">
-			@Html.DisplayNameFor(model => model.animePoster)
+			<label asp-for="animePoster" class="control-label">@localizer["Poster URL"]</label>
 		</dt>
 		<dd class="col-sm-10">
 			@Html.DisplayFor(model => model.animePoster)
 		</dd>
 		<dt class="col-sm-2">
-			@Html.DisplayNameFor(model => model.animeRating)
+			<label asp-for="animeRating" class="control-label">@localizer["Rating"]</label>
 		</dt>
 		<dd class="col-sm-10">
 			@Html.DisplayFor(model => model.animeRating)
 		</dd>
 		<dt class="col-sm-2">
-			@Html.DisplayNameFor(model => model.animeEpisodes)
+			<label asp-for="animeEpisodes" class="control-label">@localizer["Number of episodes"]</label>
 		</dt>
 		<dd class="col-sm-10">
 			@Html.DisplayFor(model => model.animeEpisodes)
 		</dd>
 		<dt class="col-sm-2">
-			@Html.DisplayNameFor(model => model.animeStartYear)
+			<label asp-for="animeStartYear" class="control-label">@localizer["Start Year"]</label>
 		</dt>
 		<dd class="col-sm-10">
 			@Html.DisplayFor(model => model.animeStartYear)
 		</dd>
 		<dt class="col-sm-2">
-			End Year
+			<label asp-for="animeEndYear" class="control-label">@localizer["End Year"]</label>
 		</dt>
 		<dd class="col-sm-10">
 			@if(ViewData["endYear"]!=null)
@@ -54,13 +55,13 @@
 			}
 		</dd>
 		<dt class="col-sm-2">
-			@Html.DisplayNameFor(model => model.animeStory)
+			<label asp-for="animeStory" class="control-label">@localizer["Plot Summery"]</label>
 		</dt>
 		<dd class="col-sm-10">
 			@Html.DisplayFor(model => model.animeStory)
 		</dd>
 		<dt class="col-sm-2">
-			@Html.DisplayNameFor(model => model.animeCategories)
+			<label asp-for="animeCategories" class="control-label">@localizer["Categories"] </label>
 		</dt>
 		<dd class="col-sm-10">
 			@Html.DisplayFor(model => model.animeCategories)
@@ -68,6 +69,6 @@
 	</dl>
 </div>
 <div>
-	<a asp-action="Edit" asp-route-id="@Model?.animeId">Edit</a> |
-	<a asp-action="Index">Back to List</a>
+	<a asp-action="Edit" asp-route-id="@Model?.animeId">@localizer["Edit"]</a> |
+	<a asp-action="Index">@localizer["Back to List"]</a>
 </div>

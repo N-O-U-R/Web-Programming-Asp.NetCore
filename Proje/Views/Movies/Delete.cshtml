@@ -1,54 +1,55 @@
 ﻿@model Proje.Models.Movie
-
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer localizer
 @{
     ViewData["Title"] = "Delete";
 }
 
-<h1>Delete</h1>
+<h1>@localizer["Delete"]</h1>
 
-<h3>Are you sure you want to delete this?</h3>
+<h3>@localizer["Are you sure you want to delete this?"]</h3>
 <div>
-    <h4>Movie</h4>
+    <h4>@localizer["Movie"]</h4>
     <hr />
     <dl class="row mb-2">
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.movieTitle)
+            <label asp-for="movieTitle" class="control-label">@localizer["Title"]</label>
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.movieTitle)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.movieYear)
+            <label asp-for="movieYear" class="control-label">@localizer["Release Year"]</label>
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.movieYear)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.moviePoster)
+            <label asp-for="moviePoster" class="control-label">@localizer["Poster URL"]</label>
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.moviePoster)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.movieRating)
+            <label asp-for="movieRating" class="control-label">@localizer["Rating"]</label>
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.movieRating)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.movieStory)
+            <label asp-for="movieStory" class="control-label">@localizer["Plot Summery"]</label>
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.movieStory)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.movieRunningTime)
+           <label asp-for="movieRunningTime" class="control-label">@localizer["Running Time"]</label>
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.movieRunningTime)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.movieCategories)
+            <label asp-for="movieCategories" class="control-label">@localizer["Categories"]</label>
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.movieCategories)
@@ -57,7 +58,7 @@
     
     <form asp-action="Delete">
         <input type="hidden" asp-for="movieId" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="Index">Back to List</a>
+        <input type="submit" value="@localizer["Delete"]" class="btn btn-danger" /> |
+        <a asp-action="Index">@localizer["Back to List"]</a>
     </form>
 </div>

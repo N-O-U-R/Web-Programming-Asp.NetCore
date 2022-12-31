@@ -1,6 +1,7 @@
 ﻿@using Proje.ViewModel;
 @model LoginVM;
-
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer localizer
 
 @if (TempData["success"] != null)
 {
@@ -41,7 +42,7 @@
 
 <div class="container ">
     <div class="col-md-3 col-md-offset-3 box">
-        <div class="text-center mb-5"><h2>Sign in</h2></div>
+        <div class="text-center mb-5"><h2>@localizer["Sign in"]</h2></div>
         
         <form asp-action="Login">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -51,13 +52,13 @@
                 <span asp-validation-for="Email" class="text-danger"></span>
             </div>
             <div class="mb-4">
-                <label asp-for="Password" class="control-label"></label>
+                <label asp-for="Password" class="control-label">@localizer["Password"] </label>
                 <input asp-for="Password" class="form-control" />
                 <span asp-validation-for="Password" class="text-danger"></span>
             </div>
             <div class="mb-4">
-                <label>Not a user? </label><a asp-action="Register" class="m-lg-2">Register</a>
-                <input class="btn btn-primary float-lg-end" type="submit" value="Login" />
+                <label>@localizer["Not a user?"] </label><a asp-action="Register" class="m-lg-2">@localizer["Register"]</a>
+                <input class="btn btn-primary float-lg-end" type="submit" value="@localizer["Login"]" />
             </div>
         </form>
     </div>

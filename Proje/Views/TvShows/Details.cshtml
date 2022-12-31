@@ -1,35 +1,37 @@
 ﻿@model Proje.Models.TvShow
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer localizer
 
 @{
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
+<h1>@localizer["Details"]</h1>
 
 <div>
-    <h4>TvShow</h4>
+    <h4>@localizer["TvShow"]</h4>
     <hr />
     <dl class="row mb-2">
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.showTitle)
+            <label asp-for="showTitle" class="control-label">@localizer["Title"]</label>
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.showTitle)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.showPoster)
+            <label asp-for="showPoster" class="control-label">@localizer["Poster URL"]</label>
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.showPoster)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.showStartYear)
+            <label asp-for="showStartYear" class="control-label">@localizer["Start Year"]</label>
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.showStartYear)
         </dd>
         <dt class = "col-sm-2">
-            End Year
+            <label asp-for="showEndYear" class="control-label">@localizer["End Year"]</label>
         </dt>
         <dd class = "col-sm-10">
             @if (ViewData["endYear"] != null)
@@ -42,25 +44,25 @@
             }
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.showEpisodes)
+             <label asp-for="showEpisodes" class="control-label">@localizer["Number of episodes"]</label>
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.showEpisodes)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.showRating)
+            <label asp-for="showRating" class="control-label">@localizer["Rating"]</label>
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.showRating)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.showStory)
+            <label asp-for="showStory" class="control-label">@localizer["Plot Summery"]</label>
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.showStory)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.showCategories)
+           <label asp-for="showCategories" class="control-label">@localizer["Categories"]</label>
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.showCategories)
@@ -68,6 +70,6 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model?.showId">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Edit" asp-route-id="@Model?.showId">@localizer["Edit"]</a> |
+    <a asp-action="Index">@localizer["Back to List"]</a>
 </div>

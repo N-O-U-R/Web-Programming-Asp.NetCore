@@ -1,4 +1,6 @@
 ﻿@model IEnumerable<Proje.Models.TvShow>
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer localizer
 
 @{
 	ViewData["Title"] = "Index";
@@ -87,14 +89,14 @@
 	<form method="get" asp-action="Index" id="Form" class="form-inline Form1">
 		<div class="row">
 			<div class="col input-group">
-				<label class="col-sm-2 col-form-label">Sort By:  </label>
+				<label class="col-sm-2 col-form-label">@localizer["Sort By"]:  </label>
 				<div class="input-group-append">
 					<select id="sortBy" name="sortBy" class="form-select">
-						<option selected value="">Please select an option</option>
-						<option value="title">Title</option>
-						<option value="year">Most recent</option>
-						<option value="rating">Rating</option>
-						<option value="episodes">Number of Episdoes</option>
+						<option selected value="">@localizer["Please select an option"]</option>
+						<option value="title">@localizer["Title"]</option>
+						<option value="year">@localizer["Most recent"]</option>
+						<option value="rating">@localizer["Sort RatingBy"]</option>
+						<option value="episodes">@localizer["Number of Episdoes"]</option>
 					</select>
 				</div>
 				
@@ -104,14 +106,14 @@
 				{
 					if (User.IsInRole("admin"))
 					{
-						<a asp-controller="TvShows" asp-action="Create" class="btn btn-primary ms-1">New Series</a>
+						<a asp-controller="TvShows" asp-action="Create" class="btn btn-primary ms-1">@localizer["New Series"]</a>
 					}
 				}
 			</div>
 			<div class="col input-group ">
 				<input type="text" class="form-control" name="search" autocomplete="off">
 				<div class="input-group-append">
-					<button class="btn btn-info" type="submit" value="Search">Search</button>
+					<button class="btn btn-info" type="submit" value="Search">@localizer["Search"]</button>
 				</div>
 
 			</div>
@@ -138,8 +140,9 @@
 					{
 						if (User.IsInRole("admin"))
 						{
-							<a asp-action="Edit" asp-route-id="@item.showId">Edit</a>
-							<a asp-action="Delete" asp-route-id="@item.showId" class="delete">Delete</a>
+							<a asp-action="Edit" asp-route-id="@item.showId">@localizer["Edit"]</a>
+							<a asp-action="Details" asp-route-id="@item.showId">@localizer["Details"]</a>
+							<a asp-action="Delete" asp-route-id="@item.showId">@localizer["Delete"]</a>
 						}
 					}
 				</td>

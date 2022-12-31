@@ -1,5 +1,6 @@
 ﻿@model Proje.Models.Anime
-
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer localizer
 @{
 	ViewData["Title"] = "Create";
 }
@@ -10,7 +11,7 @@
 	}
 </style>
 
-<h1>Create an Anime</h1>
+<h1>@localizer["Create an Anime"]</h1>
 
 
 <hr />
@@ -19,53 +20,53 @@
 		<form asp-action="Create" id="submitForm">
 			<div asp-validation-summary="ModelOnly" class="text-danger"></div>
 			<div class="form-group">
-				<label asp-for="animeTitle" class="control-label"></label>
+				<label asp-for="animeTitle" class="control-label">@localizer["Title"]</label>
 				<input asp-for="animeTitle" class="form-control" />
 				<span asp-validation-for="animeTitle" class="text-danger"></span>
 			</div>
 			<div class="form-group">
-				<label asp-for="animePoster" class="control-label"></label>
+				<label asp-for="animePoster" class="control-label">@localizer["Poster URL"]</label>
 				<input asp-for="animePoster" class="form-control" />
 				<span asp-validation-for="animePoster" class="text-danger"></span>
 			</div>
 			<div class="form-group">
-				<label asp-for="animeRating" class="control-label"></label>
+				<label asp-for="animeRating" class="control-label">@localizer["Rating"]</label>
 				<input asp-for="animeRating" class="form-control" />
 				<span asp-validation-for="animeRating" class="text-danger"></span>
 			</div>
 			<div class="form-group">
-				<label asp-for="animeEpisodes" class="control-label"></label>
+				<label asp-for="animeEpisodes" class="control-label">@localizer["Number of episodes"]</label>
 				<input asp-for="animeEpisodes" class="form-control" />
 				<span asp-validation-for="animeEpisodes" class="text-danger"></span>
 			</div>
 			<div class="form-group">
-				<label asp-for="animeStartYear" class="control-label"></label>
+				<label asp-for="animeStartYear" class="control-label">@localizer["Start Year"]</label>
 				<input asp-for="animeStartYear" class="form-control" />
 				<span asp-validation-for="animeStartYear" class="text-danger"></span>
 			</div>
 			<div class="form-group">
-				<label asp-for="animeEndYear" class="control-label"></label>
+				<label asp-for="animeEndYear" class="control-label">@localizer["End Year (if it's still airing leave empty)"]</label>
 				<input asp-for="animeEndYear" class="form-control" />
 				<span asp-validation-for="animeEndYear" class="text-danger"></span>
 			</div>
 			<div class="form-group">
-				<label asp-for="animeStory" class="control-label"></label>
+				<label asp-for="animeStory" class="control-label">@localizer["Plot Summery"]</label>
 				<input asp-for="animeStory" class="form-control" />
 				<span asp-validation-for="animeStory" class="text-danger"></span>
 			</div>
 			<div class="form-group mb-2">
-				<label asp-for="animeCategories" class="control-label"> </label>
+				<label asp-for="animeCategories" class="control-label">@localizer["Categories"] </label>
 				@Html.ListBoxFor(x => x.animeCategoryArray, new MultiSelectList(Model.categoryCollection,"categoryId","categoryName"),new { id= "multiSelectDropdown",multiple="multiple"})
 			</div>
 			<div class="form-group">
-				<input type="submit" value="Create" class="btn btn-primary" />
+				<input type="submit" value="@localizer["Create"]" class="btn btn-primary" />
 			</div>
 		</form>
 	</div
 </div>
 
 <div>
-	<a asp-action="Index">Back to List</a>
+	<a asp-action="Index">@localizer["Back to List"]</a>
 </div>
 
 	

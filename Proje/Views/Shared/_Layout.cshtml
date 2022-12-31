@@ -1,4 +1,19 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Localization
+@using Microsoft.AspNetCore.Http.Features
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer localizer
+
+@using Microsoft.Extensions.Options
+@inject IOptions<RequestLocalizationOptions> locOptions
+@{
+    var requestCulture = Context.Features.Get<IRequestCultureFeature>();
+    var cultureItems = locOptions.Value.SupportedUICultures 
+       .Select(c => new SelectListItem { Value = c.Name, Text = c.DisplayName })
+       .ToList();
+    var returnUrl = String.IsNullOrEmpty(Context.Request.Path) ? "~/" :$"~{Context.Request.Path.Value}";
+}
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta charset="utf-8" />

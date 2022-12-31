@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using Microsoft.AspNetCore.Authorization;
@@ -209,6 +210,176 @@ namespace Proje.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
+
+
+        [Authorize(Roles = "user,admin")]
+        public async Task<IActionResult> addMovie(int? movieId)
+        {
+            MovieUser movieUser = new MovieUser();
+            var movie = await _context.movies.FindAsync(movieId);
+
+
+            if (movie == null)
+            {
+                return NotFound();
+            }
+
+            movieUser.movieId = (int)movieId;
+            string userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            if (userId == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
+            movieUser.userId = userId;
+
+
+            return View(movieUser);
+        }
+
+        [Authorize(Roles = "user,admin")]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> addMovie(int movieId, MovieUser movieUser)
+        {
+
+            if (movieId != movieUser.movieId)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+
+                _context.Add(movieUser);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(myMovieList));
+            }
+            
+            return View();
+        }
+
+        [Authorize(Roles = "admin,user")]
+        public async Task<IActionResult> myMovieList(string sortBy, string search)
+        {
+
+            string userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            var movieUser = (from au in _context.movie_Users
+                             join a in _context.movies
+                             on au.movieId equals a.movieId
+                             select au).Where(x => x.userId == userId);
+
+            if (movieUser != null)
+                foreach (var item in movieUser)
+                {
+                    item.movie = await _context.movies.FindAsync(item.movieId);
+                }
+
+            if (!string.IsNullOrEmpty(search))
+            {
+                movieUser = movieUser.Where(x => x.movie.movieTitle.Contains(search) && x.userId == userId);
+            }
+
+            switch (sortBy)
+            {
+                case "title":
+                    movieUser = movieUser.Where(x => x.userId == userId).OrderBy(x => x.movie.movieTitle);
+                    break;
+
+                case "year":
+                    movieUser = movieUser.Where(x => x.userId == userId).OrderByDescending(x => x.movie.movieYear);
+                    break;
+                    
+                default:
+                case "rating":
+                    movieUser = movieUser.Where(x => x.userId == userId).OrderByDescending(x => x.userRating);
+                    break;
+
+                case "runningTime":
+                    movieUser = movieUser.Where(x => x.userId == userId).OrderByDescending(x => x.movie.movieRunningTime);
+                    break;
+                case "planToWatch":
+                    movieUser = movieUser.Where(x => x.userId == userId).Where(x => x.watchStatus.Equals("Plan to watch"));
+                    break;
+                
+                case "completed":
+                    movieUser = movieUser.Where(x => x.userId == userId).Where(x => x.watchStatus.Equals("Completed"));
+                    break;
+            }
+
+            return View(await movieUser.ToListAsync());
+        }
+
+
+        [Authorize(Roles = "admin,user")]
+        public async Task<IActionResult> deleteMovie(int? movieId, string? userId)
+        {
+            if (_context.movie_Users == null)
+            {
+                return Problem("Entity set 'ShowContext.movie_Users'  is null.");
+            }
+            var movieUser = (from a in _context.movie_Users
+                             where a.userId == userId
+                             select a).Where(x => x.movieId == movieId).FirstOrDefault();
+
+            if (movieUser != null)
+            {
+                _context.movie_Users.Remove(movieUser);
+            }
+
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(myMovieList));
+        }
+
+
+        [Authorize(Roles = "user,admin")]
+        public async Task<IActionResult> editMovie(int? movieId)
+        {
+            if (movieId == null || _context.movie_Users == null)
+            {
+                return NotFound();
+            }
+
+            string userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            if (userId == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
+
+            var movieUser = (from a in _context.movie_Users
+                             where a.userId == userId
+                             select a).Where(x => x.movieId == movieId).FirstOrDefault();
+
+            movieUser.userId = userId;
+
+            return View(movieUser);
+        }
+
+        [Authorize(Roles = "user,admin")]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> editMovie(int movieId, MovieUser movieUser)
+        {
+
+            if (movieId != movieUser.movieId)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                _context.Update(movieUser);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(myMovieList));
+            }
+            
+            return View();
+        }
+
 
         private bool MovieExists(int id)
         {

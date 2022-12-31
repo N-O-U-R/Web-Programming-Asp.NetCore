@@ -50,6 +50,6 @@ namespace Proje.Models
         public string[]? showCategoryArray { get; set; }
 
 
-       // public ICollection<tvShow_User>? tvShow_Users { get; set; }
+        public ICollection<TvShowUser>? users { get; set; }
     }
 }

@@ -43,7 +43,7 @@ namespace Proje.Models
         [NotMapped]
         public string[]? movieCategoryArray { get; set; }
 
-        //public ICollection<Movie_User>? movie_Users { get; set; }
+        public ICollection<MovieUser>? users { get; set; }
 
     }
 }

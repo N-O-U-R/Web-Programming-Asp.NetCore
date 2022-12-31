@@ -1,4 +1,4 @@
-﻿@model Proje.Models.AnimeUser
+﻿@model Proje.Models.MovieUser
 
 
 <style>
@@ -26,17 +26,16 @@
 
 
 	<div class="col-md-3 box">
-		<div class="text-center mb-5"><h2>Add anime to list</h2></div>
-		<form asp-action="addAnime">
+		<div class="text-center mb-5"><h2>Add movie to list</h2></div>
+		<form asp-action="addMovie">
 			<div asp-validation-summary="ModelOnly" class="text-danger"></div>
-			<input type="hidden" asp-for="animeId" />
+			<input type="hidden" asp-for="movieId" />
 			<input type="hidden" asp-for="userId" />
 			<div class="mb-4">
 				<label asp-for="watchStatus" class="control-label"></label>
 				<select asp-for="watchStatus" class="form-select" required>
 					<option value="">Select score</option>
 					<option value="Completed">Completed</option>
-					<option value="Watching">Watching</option>
 					<option value="Plan to watch">Plan to watch</option>
 				</select>
 				<span asp-validation-for="watchStatus" class="text-danger"></span>

@@ -12,5 +12,7 @@ namespace Proje.Models
         public string Name { get; set; }
 
         public ICollection<AnimeUser>? animes { get; set; }
+        public ICollection<MovieUser>? movies { get; set; }
+        public ICollection<TvShowUser>? tvShows { get; set; }
     }
 }

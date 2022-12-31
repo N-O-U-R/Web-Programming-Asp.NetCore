@@ -25,6 +25,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Migrations\" />
     <Folder Include="Resources\Views\Account\" />
     <Folder Include="Resources\Views\Animes\" />
     <Folder Include="Resources\Views\Home\" />

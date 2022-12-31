@@ -47,12 +47,24 @@ namespace Proje.Controllers
                     {
                         return RedirectToAction("Index", "Home");
                     }
+                    else
+                    {
+                        ModelState.AddModelError("", "Email or Password is incorrect");
+                    }
                 }
-                TempData["Error"] = "Wrong credentials. Please, try again!";
+                else
+                {
+                    ModelState.AddModelError("", "Email or Password is incorrect");
+                }
+                
                 return View(loginVM);
             }
+            else
+            {
+                ModelState.AddModelError("", "Email or Password is incorrect");
+            }
 
-            TempData["Error"] = "Wrong credentials. Please, try again!";
+
             return View(loginVM);
         }
 
@@ -76,10 +88,8 @@ namespace Proje.Controllers
                 Email = registerVM.Email,
                 UserName = registerVM.Email
             };
-            var newUserResponse = await _userM.CreateAsync(newUser, registerVM.Password);
 
-            
-           
+            var newUserResponse = await _userM.CreateAsync(newUser, registerVM.Password);
 
             if (newUserResponse.Succeeded)
             {

@@ -120,22 +120,6 @@
 
 
 <table class="table">
-	@*    <thead>
-	<tr>
-	<th>
-
-	</th>
-	<th>
-	@Html.DisplayNameFor(model => model.animeTitle)
-	</th>
-	<th>
-	@Html.DisplayNameFor(model => model.animeRating)
-	</th>
-	<th>
-	<th></th>
-	</tr>
-	</thead>*@
-
 	<tbody>
 		@foreach (var item in Model)
 		{
@@ -157,7 +141,7 @@
 						if (User.IsInRole("admin"))
 						{
 							<a asp-action="Edit" asp-route-id="@item.animeId">Edit</a>
-							<a asp-action="Details" asp-route-id="@item.animeId">Details</a>
+							
 							<a asp-action="Delete" asp-route-id="@item.animeId" class="delete">Delete</a>
 						}
 					}

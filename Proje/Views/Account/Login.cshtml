@@ -4,27 +4,39 @@
 
 @if (TempData["success"] != null)
 {
-    <div class="col-md-12 alert alert-success">
+    <div class="col-md-12 alert alert-success text-center">
         <span>@TempData["success"] </span>
     </div>
 }
 
+@*
+@if (TempData["Error"] != null)
+{
+    <div class="col-md-12 alert alert-danger text-center">
+        <span>@TempData["Error"] </span>
+    </div>
+}
+*@
+
+
 <style>
     .box {
-        background-color: #f2f3f4;
-        position: absolute;
-        left: 38%;
-        top: 25%;
-        -webkit-box-shadow: 0 0 40px 0 rgba(20, 20, 20, 0.4);
-        box-shadow: 0 0 40px 0 rgba(20, 20, 20, 0.4);
-        border-radius: 10px;
-        padding: 20px 35px;
-    }
-    input{
-        -webkit-box-shadow: 0 0 40px 0 rgba(255, 255,255,1);
-        box-shadow: 0 0 40px 0 rgba(255, 255, 255,1);
-        border-radius: 10px;
-    }
+		background-color: #f2f3f4;
+		-webkit-box-shadow: 0 0 40px 0 rgba(20, 20, 20, 0.4);
+		display:table;
+		box-shadow: 0 0 40px 0 rgba(20, 20, 20, 0.4);
+		border-radius: 10px;
+		padding: 40px 35px;
+		margin:auto;
+		margin-top:10%;
+		margin-bottom:10%;
+	}
+
+	input {
+		-webkit-box-shadow: 0 0 40px 0 rgba(255, 255,255,1);
+		box-shadow: 0 0 40px 0 rgba(255, 255, 255,1);
+		border-radius: 10px;
+	}
 </style>
 
 <div class="container ">

@@ -1,8 +1,4 @@
-﻿@model IEnumerable<Proje.Models.Movie>
-
-@{
-	ViewData["Title"] = "Index";
-}
+﻿@model IEnumerable<Proje.Models.AnimeUser>
 
 <style>
 	.Form1 {
@@ -14,8 +10,8 @@
 	}
 
 	.btn-info {
-		background-color: #00ADB5;
 		border-block-color: #00ADB5;
+		background-color: #00ADB5;
 	}
 
 	.list-box {
@@ -57,7 +53,7 @@
 		.img-card:hover {
 			-webkit-transform: scale(1.03);
 			transform: scale(1.03);
-			box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.08);
+			box-shadow: 0px 10px 25px rgba(100, 100, 100, 0.6);
 		}
 
 	.fa-star {
@@ -81,32 +77,27 @@
 			color: darkslategray
 		}
 </style>
+
+
 <div>
-	<form method="get" asp-action="Index" id="Form" class="form-inline Form1">
+	<form method="get" asp-action="MyAnimeList" id="Form" class="form-inline Form1">
 		<div class="row">
 			<div class="col input-group">
 				<label class="col-sm-2 col-form-label">Sort By:</label>
 				<div class="input-group-append">
-					<select id="sortBy" name="sortBy" class="form-select">
+					<select id="sortBy" name="sortBy" class="form-select" width=100%>
 						<option selected value="">Please select an option</option>
 						<option value="title">Title</option>
 						<option value="year">Most recent</option>
 						<option value="rating">Rating</option>
-						<option value="runningTime">Running time</option>
+						<option value="episodes">Number of episodes</option>
+						<option value="planToWatch">Plan to Watch</option>
+						<option value="completed">Completed</option>
+						<option value="watching">Watching</option>
 					</select>
 				</div>
-				
-				
 			</div>
-			<div class="col text-center">
-				@if (User.Identity.IsAuthenticated)
-				{
-					if (User.IsInRole("admin"))
-					{
-						<a asp-controller="Movies" asp-action="Create" class="btn btn-primary ms-1">New Movie</a>
-					}
-				}
-			</div>
+			<div class="col"></div>
 			<div class="col input-group ">
 				<input type="text" class="form-control" name="search" autocomplete="off">
 				<div class="input-group-append">
@@ -116,37 +107,53 @@
 	</form>
 </div>
 
+
+
+
 <table class="table">
+	@*    <thead>
+	<tr>
+	<th>
+
+	</th>
+	<th>
+	@Html.DisplayNameFor(model => model.animeTitle)
+	</th>
+	<th>
+	@Html.DisplayNameFor(model => model.animeRating)
+	</th>
+	<th>
+	<th></th>
+	</tr>
+	</thead>*@
+
 	<tbody>
 		@foreach (var item in Model)
 		{
 			<tr class="list-box">
 				<td width="30%">
-					<a asp-action="Details" asp-route-id="@item.movieId"><img src="@item.moviePoster" class="img-card" asp-append-version="true"></a>
+					<a asp-action="Details" asp-route-id="@item.animeId"><img src="@item.anime.animePoster" class="img-card" asp-append-version="true"></a>
 				</td>
-				<td class="pl">
-					<a asp-action="Details" asp-route-id="@item.movieId" class="title">@Html.DisplayFor(modelItem => item.movieTitle)</a>
+				<td class="pl ">
+					<a asp-action="Details" asp-route-id="@item.animeId" class="title">@Html.DisplayFor(modelItem => item.anime.animeTitle)</a>
 				</td>
 				<td class="text-left">
 					<i class="fa-solid fa-star"></i>
-					@Html.DisplayFor(modelItem => item.movieRating)
+					@Html.DisplayFor(modelItem => item.userRating)
 				</td>
-				<td>
-					@if (User.Identity.IsAuthenticated)
-					{
-						if (User.IsInRole("admin"))
-						{
-							<a asp-action="Edit" asp-route-id="@item.movieId">Edit</a>
-							<a asp-action="Delete" asp-route-id="@item.movieId" class="delete">Delete</a>
-						}
-					}
+				<td class="text-left">
+					
+					@Html.DisplayFor(modelItem => item.watchStatus)
 				</td>
+
 				<td>
-					<a asp-action="addMovie" asp-route-movieId="@item.movieId" class="btn btn-primary">Add to List</a>
+					<a asp-action="deleteAnime" asp-route-animeId="@item.animeId" asp-route-userId="@item.userId" class="delete">Delete</a>
+					<a asp-action="editAnime" asp-route-animeId="@item.animeId">Edit</a>
 				</td>
 			</tr>
 		}
 	</tbody>
+
 </table>
 
 @section Scripts {

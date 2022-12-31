@@ -81,7 +81,7 @@ namespace Proje.Controllers
                 i++;
             }
 
-            if(anime.animeEndYear == null)
+            if (anime.animeEndYear == null)
             {
                 ViewData["endYear"] = "Current";
             }
@@ -246,6 +246,7 @@ namespace Proje.Controllers
             AnimeUser animeUser = new AnimeUser();
             var anime = await _context.animes.FindAsync(animeId);
 
+
             if (anime == null)
             {
                 return NotFound();
@@ -258,27 +259,155 @@ namespace Proje.Controllers
             {
                 return RedirectToAction("Login", "Account");
             }
-            animeUser.userId =userId;
+
+            animeUser.userId = userId;
+
+
             return View(animeUser);
         }
 
         [Authorize(Roles = "user,admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> addAnime(int animeId,AnimeUser animeUser)
+        public async Task<IActionResult> addAnime(int animeId, AnimeUser animeUser)
         {
-            
+
             if (animeId != animeUser.animeId)
             {
                 return NotFound();
             }
 
-            
             if (ModelState.IsValid)
             {
+
                 _context.Add(animeUser);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(myAnimeList));
+            }
+            string messages = string.Join("; ", ModelState.Values
+                                        .SelectMany(x => x.Errors)
+                                        .Select(x => x.ErrorMessage));
+            TempData["modelerror"] = messages;
+            return View("addError");
+        }
+
+        [Authorize(Roles = "admin,user")]
+        public async Task<IActionResult> myAnimeList(string sortBy, string search)
+        {
+
+            string userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            var animeUser = (from au in _context.anime_Users
+                             join a in _context.animes
+                             on au.animeId equals a.animeId
+                             select au).Where(x => x.userId == userId);
+
+            if (animeUser != null)
+                foreach (var item in animeUser)
+                {
+                    item.anime = await _context.animes.FindAsync(item.animeId);
+                }
+
+            if (!string.IsNullOrEmpty(search))
+            {
+                animeUser = animeUser.Where(x => x.anime.animeTitle.Contains(search)&& x.userId == userId);
+            }
+
+            switch (sortBy)
+            {
+                case "title":
+                    animeUser = animeUser.Where(x => x.userId == userId).OrderBy(x => x.anime.animeTitle);
+                    break;
+
+                case "year":
+                    animeUser = animeUser.Where(x => x.userId == userId).OrderByDescending(x => x.anime.animeStartYear);
+                    break;
+
+                default:
+                case "rating":
+                    animeUser = animeUser.Where(x=>x.userId==userId).OrderByDescending(x => x.userRating);
+                    break;
+
+                case "episodes":
+                    animeUser = animeUser.Where(x => x.userId == userId).OrderByDescending(x => x.anime.animeEpisodes);
+                    break;
+                case "planToWatch":
+                    animeUser = animeUser.Where(x => x.userId == userId).Where(x => x.watchStatus.Equals("Plan to watch"));
+                    break;
+                case "watching":
+                    animeUser = animeUser.Where(x => x.userId == userId).Where(x => x.watchStatus.Equals("Watching"));
+                    break;
+                case "completed":
+                    animeUser = animeUser.Where(x => x.userId == userId).Where(x => x.watchStatus.Equals("Completed"));
+                    break;
+            }
+
+            return View(await animeUser.ToListAsync());
+        }
+
+
+        [Authorize(Roles = "admin,user")]
+        public async Task<IActionResult> deleteAnime(int? animeId, string? userId)
+        {
+            if (_context.anime_Users == null)
+            {
+                return Problem("Entity set 'ShowContext.anime_Users'  is null.");
+            }
+            var animeUser = (from a in _context.anime_Users
+                             where a.userId == userId
+                             select a).Where(x => x.animeId == animeId).FirstOrDefault();
+
+            if (animeUser != null)
+            {
+                _context.anime_Users.Remove(animeUser);
+            }
+
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(myAnimeList));
+        }
+
+
+        [Authorize(Roles = "user,admin")]
+        public async Task<IActionResult> editAnime(int? animeId)
+        {
+            if (animeId == null || _context.anime_Users == null)
+            {
+                return NotFound();
+            }
+
+            string userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            if (userId == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
+
+            var animeUser = (from a in _context.anime_Users
+                             where a.userId == userId
+                             select a).Where(x => x.animeId == animeId).FirstOrDefault();
+
+            animeUser.userId = userId;
+
+            return View(animeUser);
+        }
+
+        [Authorize(Roles = "user,admin")]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> editAnime(int animeId, AnimeUser animeUser)
+        {
+
+            if (animeId != animeUser.animeId)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                _context.Update(animeUser);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(myAnimeList));
             }
             string messages = string.Join("; ", ModelState.Values
                                         .SelectMany(x => x.Errors)
@@ -291,6 +420,7 @@ namespace Proje.Controllers
         {
             return _context.animes.Any(e => e.animeId == id);
         }
+
 
 
     }

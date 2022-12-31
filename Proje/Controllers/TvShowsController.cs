@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using Microsoft.AspNetCore.Authorization;
@@ -221,6 +222,178 @@ namespace Proje.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
+
+
+        [Authorize(Roles = "user,admin")]
+        public async Task<IActionResult> addShow(int? showId)
+        {
+            TvShowUser showUser = new TvShowUser();
+            var show = await _context.tvShows.FindAsync(showId);
+
+
+            if (show == null)
+            {
+                return NotFound();
+            }
+
+            showUser.showId = (int)showId;
+            string userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            if (userId == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
+            showUser.userId = userId;
+
+
+            return View(showUser);
+        }
+
+        [Authorize(Roles = "user,admin")]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> addShow(int showId, TvShowUser showUser)
+        {
+
+            if (showId != showUser.showId)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+
+                _context.Add(showUser);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(myShowList));
+            }
+            
+            return View();
+        }
+
+        [Authorize(Roles = "admin,user")]
+        public async Task<IActionResult> myShowList(string sortBy, string search)
+        {
+
+            string userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            var showUser = (from au in _context.tvShow_Users
+                             join a in _context.tvShows
+                             on au.showId equals a.showId
+                             select au).Where(x => x.userId == userId);
+
+            if (showUser != null)
+                foreach (var item in showUser)
+                {
+                    item.tvShow = await _context.tvShows.FindAsync(item.showId);
+                }
+
+            if (!string.IsNullOrEmpty(search))
+            {
+                showUser = showUser.Where(x => x.tvShow.showTitle.Contains(search) && x.userId == userId);
+            }
+
+            switch (sortBy)
+            {
+                case "title":
+                    showUser = showUser.Where(x => x.userId == userId).OrderBy(x => x.tvShow.showTitle);
+                    break;
+
+                case "year":
+                    showUser = showUser.Where(x => x.userId == userId).OrderByDescending(x => x.tvShow.showStartYear);
+                    break;
+
+                default:
+                case "rating":
+                    showUser = showUser.Where(x => x.userId == userId).OrderByDescending(x => x.userRating);
+                    break;
+
+                case "episodes":
+                    showUser = showUser.Where(x => x.userId == userId).OrderByDescending(x => x.tvShow.showEpisodes);
+                    break;
+                case "planToWatch":
+                    showUser = showUser.Where(x => x.userId == userId).Where(x => x.watchStatus.Equals("Plan to watch"));
+                    break;
+                case "watching":
+                    showUser = showUser.Where(x => x.userId == userId).Where(x => x.watchStatus.Equals("Watching"));
+                    break;
+                case "completed":
+                    showUser = showUser.Where(x => x.userId == userId).Where(x => x.watchStatus.Equals("Completed"));
+                    break;
+            }
+
+            return View(await showUser.ToListAsync());
+        }
+
+
+        [Authorize(Roles = "admin,user")]
+        public async Task<IActionResult> deleteShow(int? showId, string? userId)
+        {
+            if (_context.tvShow_Users == null)
+            {
+                return Problem("Entity set 'ShowContext.show_Users'  is null.");
+            }
+            var showUser = (from a in _context.tvShow_Users
+                             where a.userId == userId
+                             select a).Where(x => x.showId == showId).FirstOrDefault();
+
+            if (showUser != null)
+            {
+                _context.tvShow_Users.Remove(showUser);
+            }
+
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(myShowList));
+        }
+
+
+        [Authorize(Roles = "user,admin")]
+        public async Task<IActionResult> editShow(int? showId)
+        {
+            if (showId == null || _context.tvShow_Users == null)
+            {
+                return NotFound();
+            }
+
+            string userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            if (userId == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
+
+            var showUser = (from a in _context.tvShow_Users
+                             where a.userId == userId
+                             select a).Where(x => x.showId == showId).FirstOrDefault();
+
+            showUser.userId = userId;
+
+            return View(showUser);
+        }
+
+        [Authorize(Roles = "user,admin")]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> editShow(int showId, TvShowUser showUser)
+        {
+
+            if (showId != showUser.showId)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                _context.Update(showUser);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(myShowList));
+            }
+            
+            return View();
+        }
+
 
         private bool TvShowExists(int id)
         {

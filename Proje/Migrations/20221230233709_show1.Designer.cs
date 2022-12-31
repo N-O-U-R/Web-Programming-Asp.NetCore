@@ -12,8 +12,8 @@ using Proje.Models;
 namespace Proje.Migrations
 {
     [DbContext(typeof(ShowContext))]
-    [Migration("20221226220441_first")]
-    partial class first
+    [Migration("20221230233709_show1")]
+    partial class show1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -166,10 +166,9 @@ namespace Proje.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("animeId"), 1L, 1);
 
                     b.Property<string>("animeCategories")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("animeEndYear")
+                    b.Property<int?>("animeEndYear")
                         .HasColumnType("int");
 
                     b.Property<int>("animeEpisodes")
@@ -315,7 +314,6 @@ namespace Proje.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("movieId"), 1L, 1);
 
                     b.Property<string>("movieCategories")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("moviePoster")
@@ -344,6 +342,28 @@ namespace Proje.Migrations
                     b.ToTable("movies");
                 });
 
+            modelBuilder.Entity("Proje.Models.MovieUser", b =>
+                {
+                    b.Property<string>("userId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("movieId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("userRating")
+                        .HasColumnType("int");
+
+                    b.Property<string>("watchStatus")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("userId", "movieId");
+
+                    b.HasIndex("movieId");
+
+                    b.ToTable("movie_Users");
+                });
+
             modelBuilder.Entity("Proje.Models.TvShow", b =>
                 {
                     b.Property<int>("showId")
@@ -353,10 +373,9 @@ namespace Proje.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("showId"), 1L, 1);
 
                     b.Property<string>("showCategories")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("showEndYear")
+                    b.Property<int?>("showEndYear")
                         .HasColumnType("int");
 
                     b.Property<int>("showEpisodes")
@@ -383,6 +402,28 @@ namespace Proje.Migrations
                     b.HasKey("showId");
 
                     b.ToTable("tvShows");
+                });
+
+            modelBuilder.Entity("Proje.Models.TvShowUser", b =>
+                {
+                    b.Property<string>("userId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("showId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("userRating")
+                        .HasColumnType("int");
+
+                    b.Property<string>("watchStatus")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("userId", "showId");
+
+                    b.HasIndex("showId");
+
+                    b.ToTable("tvShow_Users");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -455,6 +496,44 @@ namespace Proje.Migrations
                     b.Navigation("user");
                 });
 
+            modelBuilder.Entity("Proje.Models.MovieUser", b =>
+                {
+                    b.HasOne("Proje.Models.Movie", "movie")
+                        .WithMany("users")
+                        .HasForeignKey("movieId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Proje.Models.AppUser", "user")
+                        .WithMany("movies")
+                        .HasForeignKey("userId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("movie");
+
+                    b.Navigation("user");
+                });
+
+            modelBuilder.Entity("Proje.Models.TvShowUser", b =>
+                {
+                    b.HasOne("Proje.Models.TvShow", "tvShow")
+                        .WithMany("users")
+                        .HasForeignKey("showId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Proje.Models.AppUser", "user")
+                        .WithMany("tvShows")
+                        .HasForeignKey("userId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("tvShow");
+
+                    b.Navigation("user");
+                });
+
             modelBuilder.Entity("Proje.Models.Anime", b =>
                 {
                     b.Navigation("users");
@@ -463,6 +542,20 @@ namespace Proje.Migrations
             modelBuilder.Entity("Proje.Models.AppUser", b =>
                 {
                     b.Navigation("animes");
+
+                    b.Navigation("movies");
+
+                    b.Navigation("tvShows");
+                });
+
+            modelBuilder.Entity("Proje.Models.Movie", b =>
+                {
+                    b.Navigation("users");
+                });
+
+            modelBuilder.Entity("Proje.Models.TvShow", b =>
+                {
+                    b.Navigation("users");
                 });
 #pragma warning restore 612, 618
         }

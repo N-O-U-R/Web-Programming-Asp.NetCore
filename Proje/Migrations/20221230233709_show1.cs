@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Proje.Migrations
 {
-    public partial class first : Migration
+    public partial class show1 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -20,9 +20,9 @@ namespace Proje.Migrations
                     animeRating = table.Column<double>(type: "float", nullable: false),
                     animeEpisodes = table.Column<int>(type: "int", nullable: false),
                     animeStartYear = table.Column<int>(type: "int", nullable: false),
-                    animeEndYear = table.Column<int>(type: "int", nullable: false),
+                    animeEndYear = table.Column<int>(type: "int", nullable: true),
                     animeStory = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    animeCategories = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    animeCategories = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -94,7 +94,7 @@ namespace Proje.Migrations
                     movieRating = table.Column<double>(type: "float", nullable: false),
                     movieStory = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     movieRunningTime = table.Column<int>(type: "int", nullable: false),
-                    movieCategories = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    movieCategories = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -110,11 +110,11 @@ namespace Proje.Migrations
                     showTitle = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     showPoster = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     showStartYear = table.Column<int>(type: "int", nullable: false),
-                    showEndYear = table.Column<int>(type: "int", nullable: false),
+                    showEndYear = table.Column<int>(type: "int", nullable: true),
                     showEpisodes = table.Column<int>(type: "int", nullable: false),
                     showRating = table.Column<double>(type: "float", nullable: false),
                     showStory = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    showCategories = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    showCategories = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -253,6 +253,58 @@ namespace Proje.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "movie_Users",
+                columns: table => new
+                {
+                    movieId = table.Column<int>(type: "int", nullable: false),
+                    userId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    watchStatus = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    userRating = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_movie_Users", x => new { x.userId, x.movieId });
+                    table.ForeignKey(
+                        name: "FK_movie_Users_AspNetUsers_userId",
+                        column: x => x.userId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_movie_Users_movies_movieId",
+                        column: x => x.movieId,
+                        principalTable: "movies",
+                        principalColumn: "movieId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "tvShow_Users",
+                columns: table => new
+                {
+                    showId = table.Column<int>(type: "int", nullable: false),
+                    userId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    watchStatus = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    userRating = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_tvShow_Users", x => new { x.userId, x.showId });
+                    table.ForeignKey(
+                        name: "FK_tvShow_Users_AspNetUsers_userId",
+                        column: x => x.userId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_tvShow_Users_tvShows_showId",
+                        column: x => x.showId,
+                        principalTable: "tvShows",
+                        principalColumn: "showId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_anime_Users_animeId",
                 table: "anime_Users",
@@ -296,6 +348,16 @@ namespace Proje.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_movie_Users_movieId",
+                table: "movie_Users",
+                column: "movieId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_tvShow_Users_showId",
+                table: "tvShow_Users",
+                column: "showId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -322,10 +384,10 @@ namespace Proje.Migrations
                 name: "categories");
 
             migrationBuilder.DropTable(
-                name: "movies");
+                name: "movie_Users");
 
             migrationBuilder.DropTable(
-                name: "tvShows");
+                name: "tvShow_Users");
 
             migrationBuilder.DropTable(
                 name: "animes");
@@ -334,7 +396,13 @@ namespace Proje.Migrations
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
+                name: "movies");
+
+            migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "tvShows");
         }
     }
 }

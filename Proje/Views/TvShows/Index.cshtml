@@ -63,6 +63,25 @@
 	.fa-star {
 		color: #D5AB55;
 	}
+
+
+	.delete {
+		color: red;
+	}
+
+		.delete:hover {
+			color: darkred;
+		}
+
+	.title {
+		text-decoration: none;
+		color: black;
+	}
+
+		.title:hover {
+			color: darkslategray
+		}
+
 </style>
 <div>
 	<form method="get" asp-action="Index" id="Form" class="form-inline Form1">
@@ -105,10 +124,10 @@
 		{
 			<tr class="list-box">
 				<td width="30%">
-					<img src="@item.showPoster" class="img-card" asp-append-version="true">
+					<a asp-action="Details" asp-route-id="@item.showId"><img src="@item.showPoster" class="img-card" asp-append-version="true"></a>
 				</td>
 				<td class="pl">
-					@Html.DisplayFor(modelItem => item.showTitle)
+					<a asp-action="Details" asp-route-id="@item.showId" class="title">@Html.DisplayFor(modelItem => item.showTitle)</a>
 				</td>
 				<td class="text-left">
 					<i class="fa-solid fa-star"></i>
@@ -120,13 +139,12 @@
 						if (User.IsInRole("admin"))
 						{
 							<a asp-action="Edit" asp-route-id="@item.showId">Edit</a>
-							<a asp-action="Details" asp-route-id="@item.showId">Details</a>
-							<a asp-action="Delete" asp-route-id="@item.showId">Delete</a>
+							<a asp-action="Delete" asp-route-id="@item.showId" class="delete">Delete</a>
 						}
 					}
 				</td>
 				<td>
-					<a class="btn btn-primary">Add to List</a>
+					<a asp-action="addShow" asp-route-showId="@item.showId" class="btn btn-primary">Add to List</a>
 				</td>
 			</tr>
 		}

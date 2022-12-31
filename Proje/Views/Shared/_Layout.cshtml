@@ -6,11 +6,11 @@
 @using Microsoft.Extensions.Options
 @inject IOptions<RequestLocalizationOptions> locOptions
 @{
-    var requestCulture = Context.Features.Get<IRequestCultureFeature>();
-    var cultureItems = locOptions.Value.SupportedUICultures 
-       .Select(c => new SelectListItem { Value = c.Name, Text = c.DisplayName })
-       .ToList();
-    var returnUrl = String.IsNullOrEmpty(Context.Request.Path) ? "~/" :$"~{Context.Request.Path.Value}";
+	var requestCulture = Context.Features.Get<IRequestCultureFeature>();
+	var cultureItems = locOptions.Value.SupportedUICultures
+				.Select(c => new SelectListItem { Value = c.Name, Text = c.DisplayName })
+				.ToList();
+	var returnUrl = String.IsNullOrEmpty(Context.Request.Path) ? "~/" : $"~{Context.Request.Path.Value}";
 }
 
 <!DOCTYPE html>
@@ -48,8 +48,10 @@
 			-ms-transform: translateY(-50%);
 			transform: translateY(-50%);
 		}
-		
-		
+		.form-select
+		{
+			max-width:14vw;
+		}
 	</style>
 </head>
 <body>
@@ -89,8 +91,14 @@
 							}
 
 						}
+
 					</ul>
 				</div>
+				<form asp-controller="Account" asp-action="SetLanguage" asp-route-returnUrl="@returnUrl" id="selectLangauge" method="POST" 
+					  title="@localizer["Request culture provider"] @requestCulture?.Provider?.GetType().Name ">
+					<select name="culture" onchange="this.form.submit();" asp-for="@requestCulture.RequestCulture.UICulture.Name" asp-items="cultureItems" class="form-select">
+					</select>
+				</form>
 				<partial name="_LoginPartial" />
 			</div>
 		</nav>

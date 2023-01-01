@@ -117,25 +117,25 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Email" xml:space="preserve">
-    <value>Eposta</value>
+  <data name="Completed" xml:space="preserve">
+    <value>tamamlandı</value>
   </data>
-  <data name="Login" xml:space="preserve">
-    <value>Giriş yap</value>
+  <data name="Edit the Anime" xml:space="preserve">
+    <value>Anime yi Düzenle</value>
   </data>
-  <data name="Not a user?" xml:space="preserve">
-    <value>Kullanıcı değilmisin ?</value>
+  <data name="Plan to Watch" xml:space="preserve">
+    <value>İzlemeye Planlıyorum</value>
   </data>
-  <data name="Password" xml:space="preserve">
-    <value>Şifre</value>
+  <data name="Please select an option" xml:space="preserve">
+    <value>Lütfen bir seçenek seçiniz</value>
   </data>
-  <data name="Register" xml:space="preserve">
-    <value>Kayıt ol</value>
+  <data name="Save" xml:space="preserve">
+    <value>Kaydet</value>
   </data>
-  <data name="Sign in" xml:space="preserve">
-    <value>Giriş yap</value>
+  <data name="Select Status" xml:space="preserve">
+    <value>Durum seçiniz</value>
   </data>
-  <data name="success" xml:space="preserve">
-    <value>Başarılı</value>
+  <data name="Watching" xml:space="preserve">
+    <value>İzlenmekte</value>
   </data>
 </root>

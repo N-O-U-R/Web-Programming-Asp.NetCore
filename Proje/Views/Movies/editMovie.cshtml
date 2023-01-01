@@ -9,6 +9,8 @@
 @{
 }
 @model Proje.Models.MovieUser
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer localizer
 
 
 <style>
@@ -33,7 +35,7 @@
 
 <div class="container ">
 	<div class="col-md-3 col-md-offset-3 box">
-		<div class="text-center mb-5"><h2>Edit the Movie</h2></div>
+		<div class="text-center mb-5"><h2>@localizer["Edit the Movie"]</h2></div>
 		<form asp-action="editMovie">
 			<div asp-validation-summary="ModelOnly" class="text-danger"></div>
 			<input type="hidden" asp-for="movieId" />
@@ -41,16 +43,16 @@
 			<div class="mb-4">
 				<label asp-for="watchStatus" class="control-label"></label>
 				<select asp-for="watchStatus" class="form-select" required>
-					<option value="">Select score</option>
-					<option value="Completed">Completed</option>
-					<option value="Plan to watch">Plan to watch</option>
+					<option value="">@localizer["Select Status"]</option>
+					<option value="Completed">@localizer["Completed"]</option>
+					<option value="Plan to watch">@localizer["Plan to watch"] </option>
 				</select>
 				<span asp-validation-for="watchStatus" class="text-danger"></span>
 			</div>
 			<div class="mb-4">
 				<label asp-for="userRating" class="control-label"></label>
 				<select asp-for="userRating" class="form-select" required>
-					<option value="">Select score</option>
+					<option value="">@localizer["Select Score"]</option>
 					<option value=10>10</option>
 					<option value=9>9</option>
 					<option value=8>8</option>
@@ -66,7 +68,7 @@
 			</div>
 
 			<div class="form-group">
-				<input type="submit" value="Save" class="btn btn-primary float-lg-end" />
+				<input type="submit" value="@localizer["Save"]" class="btn btn-primary float-lg-end" />
 			</div>
 		</form>
 	</div>

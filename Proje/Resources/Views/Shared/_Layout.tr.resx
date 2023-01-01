@@ -120,8 +120,20 @@
   <data name="Anime" xml:space="preserve">
     <value>Anime</value>
   </data>
+  <data name="Animes List" xml:space="preserve">
+    <value>Animelerin Listesi</value>
+  </data>
   <data name="Movie" xml:space="preserve">
     <value>Film</value>
+  </data>
+  <data name="Movies List" xml:space="preserve">
+    <value>Filmlerin Listesi</value>
+  </data>
+  <data name="My Lists" xml:space="preserve">
+    <value>Listelerim</value>
+  </data>
+  <data name="MyWatchList" xml:space="preserve">
+    <value>İzlemeListem</value>
   </data>
   <data name="Privacy" xml:space="preserve">
     <value>Gizlilik</value>
@@ -129,7 +141,7 @@
   <data name="Series" xml:space="preserve">
     <value>Dizi</value>
   </data>
-  <data name="String1" xml:space="preserve">
-    <value />
+  <data name="Series List" xml:space="preserve">
+    <value>Dizilerin Listesi</value>
   </data>
 </root>

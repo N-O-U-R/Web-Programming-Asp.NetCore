@@ -8,6 +8,7 @@ using Proje.Models;
 using Proje.ViewModel;
 using System;
 
+
 namespace Proje.Controllers
 {
     public class AccountController : Controller

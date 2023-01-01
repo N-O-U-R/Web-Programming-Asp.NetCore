@@ -129,8 +129,8 @@
   <data name="Plan to watch" xml:space="preserve">
     <value>Izlemeye planlıyorum</value>
   </data>
-  <data name="Select score" xml:space="preserve">
-    <value>Puan seç</value>
+  <data name="Select Status" xml:space="preserve">
+    <value>Durum seç</value>
   </data>
   <data name="Submit" xml:space="preserve">
     <value>Gönder</value>

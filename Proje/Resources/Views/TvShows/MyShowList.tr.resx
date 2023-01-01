@@ -117,25 +117,40 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Email" xml:space="preserve">
-    <value>Eposta</value>
+  <data name="Completed" xml:space="preserve">
+    <value>Tamamlandı</value>
   </data>
-  <data name="Login" xml:space="preserve">
-    <value>Giriş yap</value>
+  <data name="Delete" xml:space="preserve">
+    <value>Sil</value>
   </data>
-  <data name="Not a user?" xml:space="preserve">
-    <value>Kullanıcı değilmisin ?</value>
+  <data name="Edit" xml:space="preserve">
+    <value>Düzenle</value>
   </data>
-  <data name="Password" xml:space="preserve">
-    <value>Şifre</value>
+  <data name="Most recent" xml:space="preserve">
+    <value>Son eklenen</value>
   </data>
-  <data name="Register" xml:space="preserve">
-    <value>Kayıt ol</value>
+  <data name="Number of episodes" xml:space="preserve">
+    <value>Bölümlerin Sayıs</value>
   </data>
-  <data name="Sign in" xml:space="preserve">
-    <value>Giriş yap</value>
+  <data name="Plan to Watch" xml:space="preserve">
+    <value>İzlemeye Planlıyorum</value>
   </data>
-  <data name="success" xml:space="preserve">
-    <value>Başarılı</value>
+  <data name="Please select an option" xml:space="preserve">
+    <value>Lütfen bir seçenek seçiniz</value>
+  </data>
+  <data name="Rating" xml:space="preserve">
+    <value>Puanlama</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Ara</value>
+  </data>
+  <data name="Sort By" xml:space="preserve">
+    <value>Listele</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>Başlık</value>
+  </data>
+  <data name="Watching" xml:space="preserve">
+    <value>İzlenmekte</value>
   </data>
 </root>

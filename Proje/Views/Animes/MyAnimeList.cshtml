@@ -1,4 +1,6 @@
 ﻿@model IEnumerable<Proje.Models.AnimeUser>
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer localizer
 
 <style>
 	.Form1 {
@@ -83,17 +85,17 @@
 	<form method="get" asp-action="MyAnimeList" id="Form" class="form-inline Form1">
 		<div class="row">
 			<div class="col input-group">
-				<label class="col-sm-2 col-form-label">Sort By:</label>
+				<label class="col-sm-2 col-form-label">@localizer["Sort By"]:</label>
 				<div class="input-group-append">
 					<select id="sortBy" name="sortBy" class="form-select" width=100%>
-						<option selected value="">Please select an option</option>
-						<option value="title">Title</option>
-						<option value="year">Most recent</option>
-						<option value="rating">Rating</option>
-						<option value="episodes">Number of episodes</option>
-						<option value="planToWatch">Plan to Watch</option>
-						<option value="completed">Completed</option>
-						<option value="watching">Watching</option>
+						<option selected value="">@localizer["Please select an option"] </option>
+						<option value="title">@localizer["Title"]</option>
+						<option value="year">@localizer["Most recent"]</option>
+						<option value="rating">@localizer["Rating"]</option>
+						<option value="episodes">@localizer["Number of episodes"]</option>
+						<option value="planToWatch">@localizer["Plan to Watch"]</option>
+						<option value="completed">@localizer["Completed"]</option>
+						<option value="watching">@localizer["Watching"]</option>
 					</select>
 				</div>
 			</div>
@@ -101,7 +103,7 @@
 			<div class="col input-group ">
 				<input type="text" class="form-control" name="search" autocomplete="off">
 				<div class="input-group-append">
-					<button class="btn btn-info" type="submit" value="Search">Search</button>
+					<button class="btn btn-info" type="submit" value="@localizer["Search"]"></button>
 				</div>
 			</div>
 	</form>
@@ -127,12 +129,14 @@
 				</td>
 				<td class="text-left">
 					
+
 					@Html.DisplayFor(modelItem => item.watchStatus)
+					watchStatu = 
 				</td>
 
 				<td>
-					<a asp-action="deleteAnime" asp-route-animeId="@item.animeId" asp-route-userId="@item.userId" class="delete">Delete</a>
-					<a asp-action="editAnime" asp-route-animeId="@item.animeId">Edit</a>
+					<a asp-action="deleteAnime" asp-route-animeId="@item.animeId" asp-route-userId="@item.userId" class="delete">@localizer["Delete"]</a>
+					<a asp-action="editAnime" asp-route-animeId="@item.animeId">@localizer["Edit"]</a>
 				</td>
 			</tr>
 		}

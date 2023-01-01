@@ -20,9 +20,10 @@ namespace Proje.Models
         [Display(Name = "Poster URL")]
         [Required(ErrorMessage = "Please enter a value.")]
         public string animePoster { get; set; }
+
         [Required(ErrorMessage = "Please enter a value.")]
         [Display(Name ="Rating")]
-        [Range(0.1, 10, ErrorMessage = "Please enter a correct value.")]
+        [Range(0, 10, ErrorMessage = "Please enter a correct value.")]
         public double animeRating { get; set; }
 
         [Required(ErrorMessage = "Please enter a value.")]

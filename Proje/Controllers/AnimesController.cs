@@ -126,7 +126,12 @@ namespace Proje.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(anime);
+            string messages = string.Join("; ", ModelState.Values
+                                        .SelectMany(x => x.Errors)
+                                        .Select(x => x.ErrorMessage));
+
+            TempData["addError"] = messages;
+            return View("addError");
         }
 
         // GET: Animes/Edit/5

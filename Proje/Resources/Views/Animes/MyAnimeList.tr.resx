@@ -141,6 +141,9 @@
   <data name="Rating" xml:space="preserve">
     <value>Puanlama</value>
   </data>
+  <data name="Search" xml:space="preserve">
+    <value>Ara</value>
+  </data>
   <data name="Sort By" xml:space="preserve">
     <value>Sırala</value>
   </data>

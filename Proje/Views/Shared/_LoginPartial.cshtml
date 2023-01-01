@@ -9,7 +9,13 @@
 @if (SignInManager.IsSignedIn(User))
 {
     <li class="nav-item">
-        <a id="manage" class="nav-link text-dark" asp-controller="Account" asp-action="Login" title="Manage">@localizer["Hello"] @UserManager.GetUserAsync(User).Result.Name!</a>
+            @if (User.IsInRole("admin"))
+            {
+                <a id="manage" class="nav-link text-dark" asp-controller="CallApi" asp-action="Index" title="Manage">@localizer["Hello"] @UserManager.GetUserAsync(User).Result.Name!</a>
+            }           
+            else{
+                <label id="manage" class="nav-link text-dark" title="Manage">@localizer["Hello"] @UserManager.GetUserAsync(User).Result.Name!</label>
+            }
     </li>
     <li class="nav-item">
         <form id="logoutForm" class="form-inline" asp-controller="Account" asp-action="Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">

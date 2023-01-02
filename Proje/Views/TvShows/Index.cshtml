@@ -141,7 +141,7 @@
 						if (User.IsInRole("admin"))
 						{
 							<a asp-action="Edit" asp-route-id="@item.showId">@localizer["Edit"]</a>
-							<a asp-action="Delete" asp-route-id="@item.showId">@localizer["Delete"]</a>
+							<a asp-action="Delete" asp-route-id="@item.showId" class="delete">@localizer["Delete"]</a>
 						}
 					}
 				</td>

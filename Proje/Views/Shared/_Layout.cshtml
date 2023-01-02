@@ -48,7 +48,7 @@
 			-ms-transform: translateY(-50%);
 			transform: translateY(-50%);
 		}
-		.form-select
+		.language
 		{
 			max-width:14vw;
 		}
@@ -96,7 +96,7 @@
 				</div>
 				<form asp-controller="Account" asp-action="SetLanguage" asp-route-returnUrl="@returnUrl" id="selectLangauge" method="POST" 
 					  title="@localizer["Request culture provider"] @requestCulture?.Provider?.GetType().Name ">
-					<select name="culture" onchange="this.form.submit();" asp-for="@requestCulture.RequestCulture.UICulture.Name" asp-items="cultureItems" class="form-select">
+					<select name="culture" onchange="this.form.submit();" asp-for="@requestCulture.RequestCulture.UICulture.Name" asp-items="cultureItems" class="form-select language">
 					</select>
 				</form>
 				<partial name="_LoginPartial" />

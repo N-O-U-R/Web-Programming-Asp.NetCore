@@ -15,25 +15,9 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-
-//builder.Services.ConfigureApplicationCookie(op => op.LoginPath = "/UserAuthentcation/Login");
-
-//builder.Services.AddScoped<IUserAuthenticationService, UserAuthenticationService>();
 builder.Services.AddDbContext<ShowContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("Default")));
 
-
-//builder.Services.AddIdentity<IdentityUser, IdentityRole>(options =>
-//    {
-//        options.Password.RequiredLength = 3;
-//        options.Password.RequireUppercase = false;
-//        options.Password.RequireLowercase = true;
-
-//        options.Lockout.MaxFailedAccessAttempts = 5;
-//        options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(1);
-//        options.User.RequireUniqueEmail = true;
-//    })
-//    .AddEntityFrameworkStores<ShowContext>();
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
@@ -59,11 +43,6 @@ builder.Services.AddAuthentication(options => options.DefaultScheme=CookieAuthen
 
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
-//builder.Services.ConfigureApplicationCookie(options =>
-//{
-//    options.LoginPath = "/Account/Login";
-//    options.AccessDeniedPath = "/Account/AccessDenied";
-//});
 //langauges
 builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
 builder.Services.AddMvc().AddViewLocalization(Microsoft.AspNetCore.Mvc.Razor.LanguageViewLocationExpanderFormat.Suffix)
@@ -103,9 +82,6 @@ app.UseDeveloperExceptionPage();
 
 app.UseRouting();
 
-var options = ((IApplicationBuilder)app).ApplicationServices.GetRequiredService<IOptions<RequestLocalizationOptions>>();
-
-app.UseRequestLocalization(options.Value);
 
 app.UseAuthentication();
 app.UseAuthorization();

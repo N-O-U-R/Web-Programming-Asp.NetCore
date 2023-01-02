@@ -24,11 +24,6 @@ namespace Proje.Controllers
             _sinInM = sinInM;
             _context = context;
         }
-        //public async Task<IActionResult> Users()
-        //{
-        //    var users = await _context.Users.ToListAsync();
-        //    return View(users);
-        //}
         public IActionResult Login() => View(new LoginVM());
 
         [HttpPost]
@@ -117,7 +112,7 @@ namespace Proje.Controllers
 
         public IActionResult AccessDenied(string ReturnUrl)
         {
-            return View();
+            return View("AccessDenied");
         }
 		public IActionResult SetLanguage(string culture, string returnUrl)
 		{
@@ -128,9 +123,6 @@ namespace Proje.Controllers
 				);
 			return LocalRedirect(returnUrl);
 		}
-
-
-
 
 	}
 }
